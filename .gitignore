@@ -1,0 +1,11 @@
+.venv/
+.env
+__pycache__/
+.pytest_cache/
+.coverage
+*.pyc
+.DS_Store
+
+data/private/
+artifacts/private/
+.streamlit/secrets.toml

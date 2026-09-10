@@ -1,0 +1,6 @@
+worker_id,community_id,experience_years,reliability_score,verified,trust_score,available_hours_week,availability,max_distance_km,distance_km
+W001,C001,5,0.95,True,0.92,40,Available,20,5
+W002,C001,3,0.88,True,0.85,30,Available,20,5
+W003,C002,7,0.91,True,0.9,20,Busy,20,5
+W004,C003,2,0.8,False,0.75,40,Available,20,5
+W005,C002,6,0.93,True,0.91,35,Available,20,5

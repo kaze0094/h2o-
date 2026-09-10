@@ -1,0 +1,10 @@
+worker_id,skill_name,skill_level
+W001,packaging,85
+W001,quality_control,90
+W002,packaging,75
+W002,inspection,80
+W003,quality_control,95
+W003,logistics,85
+W004,packaging,60
+W005,quality_control,88
+W005,logistics,82

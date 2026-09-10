@@ -1,0 +1,16 @@
+streamlit
+pandas
+numpy
+plotly
+pydantic
+sqlalchemy
+psycopg[binary]
+python-dotenv
+scikit-learn
+simpy
+faker
+openai
+pytest
+pytest-cov
+ruff
+mypy
