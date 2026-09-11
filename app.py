@@ -1,188 +1,103 @@
-
 import streamlit as st
-from pathlib import Path
-import pandas as pd
-import plotly.express as px
 
-from src.core.human_twin import WorkerTwin
-from src.core.job_twin import JobTwin
-from src.core.matching_engine import score_worker
+from components.theme import apply_global_style
+from components.layout import render_sidebar, render_header
+
+
+# ==================================================
+# PAGE CONFIGURATION
+# ==================================================
 
 st.set_page_config(
+
     page_title="SkillBridge AI",
-    page_icon="🌱",
-    layout="wide"
+
+    page_icon=None,
+
+    layout="wide",
+
+    initial_sidebar_state="expanded"
+
 )
 
-# ---------- STYLE ----------
-st.markdown("""
-<style>
-.main {
-    background:#f5f8fc;
-}
-h1,h2,h3 {
-    color:#12345b;
-}
-.card {
-    background:white;
-    border-radius:16px;
-    padding:20px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-}
-.metric-box {
-    background:white;
-    border-radius:15px;
-    padding:18px;
-    text-align:center;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-</style>
-""", unsafe_allow_html=True)
 
-BASE = Path(__file__).parent / "data" / "skillbridge"
+# ==================================================
+# GLOBAL STYLE
+# ==================================================
 
-workers_df = pd.read_csv(BASE / "workers.csv")
-jobs_df = pd.read_csv(BASE / "jobs.csv")
-
-st.title("🌱 Human Capital Digital Twin")
-st.caption(
-    "AI-Powered Inclusive Workforce Intelligence Platform"
-)
-
-# ---------- KPI ----------
-c1,c2,c3,c4 = st.columns(4)
-
-c1.metric(
-    "Available workers",
-    len(workers_df)
-)
-
-c2.metric(
-    "Verified workers",
-    int(workers_df["verified"].sum())
-)
-
-c3.metric(
-    "Communities",
-    workers_df["community_id"].nunique()
-)
-
-c4.metric(
-    "Average trust score",
-    f'{workers_df["trust_score"].mean():.0%}'
-)
-
-st.divider()
-
-tab1,tab2,tab3 = st.tabs(
-    [
-        "👥 Worker Digital Twin",
-        "🏢 Enterprise Request",
-        "🤖 AI Matching Engine"
-    ]
-)
-
-# ---------- WORKERS ----------
-with tab1:
-    st.subheader("Worker Intelligence")
-
-    st.dataframe(
-        workers_df,
-        use_container_width=True
-    )
-
-    fig = px.bar(
-        workers_df,
-        x="worker_id",
-        y="trust_score",
-        title="Worker Trust Score"
-    )
-    st.plotly_chart(fig,use_container_width=True)
+apply_global_style()
 
 
-# ---------- JOB ----------
-with tab2:
-    st.subheader("Create Job Digital Twin")
+# ==================================================
+# HEADER
+# ==================================================
 
-    job = st.selectbox(
-        "Select job",
-        jobs_df["job_id"]
-    )
-
-    st.json(
-        jobs_df[
-            jobs_df.job_id==job
-        ].iloc[0].to_dict()
-    )
+render_header()
 
 
-# ---------- MATCH ----------
-with tab3:
-    st.subheader("AI Matching Results")
+# ==================================================
+# SIDEBAR NAVIGATION
+# ==================================================
 
-    demo_job = JobTwin(
-        job_id="JOB-DEMO",
-        employer_id="EMP-001",
-        task_type="packaging",
-        required_skills={"packaging":0.75},
-        required_hours_per_worker=20,
-        workers_needed=10,
-        max_logistics_distance_km=20,
-        quality_threshold=0.95,
-        verified=True,
-        permitted_task=True,
-        payment_prefunded=True
-    )
+selected_page = render_sidebar()
 
-    results=[]
 
-    for _,row in workers_df.iterrows():
 
-        worker=WorkerTwin(
-            worker_id=row["worker_id"],
-            community_id=row["community_id"],
-            skills={
-                "packaging": row.get("packaging_skill",0)/100
-            },
-            available_hours_week=row["available_hours_week"],
-            max_distance_km=row["max_distance_km"],
-            reliability_score=row["reliability_score"],
-            active=True,
-            consent_valid=True
-        )
+# ==================================================
+# PAGE ROUTING
+# ==================================================
 
-        r=score_worker(
-            worker,
-            demo_job,
-            row["distance_km"]
-        )
 
-        if r.eligible:
-            results.append(
-                {
-                    "Worker":r.worker_id,
-                    "Match Score":r.score,
-                    "Explanation":" | ".join(r.reasons)
-                }
-            )
+if selected_page == "Overview":
 
-    result_df=pd.DataFrame(results)
+    from pages.dashboard import show_dashboard
 
-    if len(result_df):
-        st.dataframe(
-            result_df,
-            use_container_width=True
-        )
+    show_dashboard()
 
-        fig=px.bar(
-            result_df,
-            x="Worker",
-            y="Match Score",
-            title="AI Match Ranking"
-        )
-        st.plotly_chart(
-            fig,
-            use_container_width=True
-        )
-    else:
-        st.warning("No eligible matching workers")
+
+
+elif selected_page == "Worker Digital Twin":
+
+    from pages.worker_twin import show_worker_twin
+
+    show_worker_twin()
+
+
+
+elif selected_page == "Enterprise Requests":
+
+    from pages.enterprise import show_enterprise
+
+    show_enterprise()
+
+
+
+elif selected_page == "AI Matching":
+
+    from pages.matching import show_matching
+
+    show_matching()
+
+
+
+elif selected_page == "Community Hub":
+
+    from pages.community import show_community
+
+    show_community()
+
+
+
+elif selected_page == "Quality Control":
+
+    from pages.quality import show_quality
+
+    show_quality()
+
+
+
+elif selected_page == "Impact Analytics":
+
+    from pages.impact import show_impact
+
+    show_impact()

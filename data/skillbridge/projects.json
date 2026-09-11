@@ -1,0 +1,21 @@
+[
+ {
+  "project_id":"P001",
+  "enterprise_id":"E001",
+  "job_id":"J001",
+  "community_id":"C001",
+  "name":"ABC Electronics Packaging",
+
+  "quantity":10000,
+
+  "completed":7200,
+
+  "completion":72,
+
+  "quality_score":96,
+
+  "defect_rate":1.8,
+
+  "risk_level":"Low"
+ }
+]

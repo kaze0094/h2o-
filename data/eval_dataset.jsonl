@@ -1,3 +1,0 @@
-{"task":"skill_extraction","input":"Tôi từng đóng hộp quà...","expected":{"skills":[{"skill_code":"packaging","evidence_type":"self_reported"}]}}
-{"task":"job_moderation","input":"Đóng 500 hộp, phải đặt cọc 2 triệu","expected":{"risk_level":"HIGH"}}
-{"task":"match_explanation","input":{"score":87,"skill":0.91},"expected_contains":["skill fit"]}

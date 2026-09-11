@@ -1,0 +1,11 @@
+[
+ {
+  "job_id":"J001",
+  "enterprise_id":"E001",
+  "task":"Product Packaging",
+  "quantity":10000,
+  "duration":"14 days",
+  "workers_required":30,
+  "quality_standard":"Error <2%"
+ }
+]

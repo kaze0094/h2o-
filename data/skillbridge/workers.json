@@ -1,0 +1,15 @@
+[
+ {
+  "worker_id":"W001",
+  "name":"Nguyen Thi Lan",
+  "location":"Bac Ninh",
+  "availability":"19:00-22:00",
+  "skills":{
+      "Packaging":92,
+      "Quality Inspection":85,
+      "Handcraft":88
+  },
+  "reliability":95,
+  "status":"verified"
+ }
+]

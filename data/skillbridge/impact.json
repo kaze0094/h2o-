@@ -1,0 +1,17 @@
+[
+ {
+  "project_id":"P001",
+
+  "workers_supported":45,
+
+  "working_hours":350,
+
+  "income_generated":85000,
+
+  "sdg":[
+    "SDG5",
+    "SDG8",
+    "SDG10"
+  ]
+ }
+]
