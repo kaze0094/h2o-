@@ -1,150 +1,187 @@
 import streamlit as st
 
 
+# =====================================================
+# GLOBAL STYLE SYSTEM
+# =====================================================
 
-def render_header():
-
+def load_enterprise_theme():
 
     st.markdown(
 
-    """
+        """
 
-    <div style="
-    padding:20px 0;
-    ">
-
-    <h1 style="
-    color:#0F172A;
-    font-size:36px;
-    margin-bottom:5px;
-    ">
-
-    SkillBridge AI
-
-    </h1>
+<style>
 
 
-    <p style="
-    color:#475569;
-    font-size:18px;
-    ">
+/* Main background */
 
-    Human Capital Digital Twin Platform
+.main {
 
-    </p>
+    background-color:#F7F9FC;
+
+}
 
 
-    <p style="
+
+/* Remove default padding */
+
+.block-container {
+
+    padding-top:2rem;
+
+    padding-left:3rem;
+
+    padding-right:3rem;
+
+}
+
+
+
+/* Typography */
+
+h1,h2,h3 {
+
+    color:#172B4D;
+
+    font-family:
+    "Inter",
+    sans-serif;
+
+}
+
+
+p,span,div {
+
+    font-family:
+    "Inter",
+    sans-serif;
+
+}
+
+
+
+/* KPI CARD */
+
+.kpi-card {
+
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:22px;
+
+    border:1px solid #E5E7EB;
+
+    box-shadow:
+    0 2px 8px rgba(0,0,0,0.04);
+
+
+}
+
+
+
+.kpi-title {
+
+
     color:#64748B;
-    ">
 
-    AI-powered workforce intelligence
-    for inclusive economic participation.
+    font-size:14px;
 
-    </p>
+}
 
 
-    </div>
-
-    """,
-
-    unsafe_allow_html=True
-
-    )
+.kpi-value {
 
 
+    margin-top:8px;
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:#0F172A;
 
 
-def render_sidebar():
-
-
-    st.sidebar.markdown(
-
-        """
-
-        ## SkillBridge AI
-
-        ---
-
-        """
-
-    )
-
-
-    page = st.sidebar.radio(
-
-        "Navigation",
-
-        [
-
-        "Overview",
-
-        "Enterprise Request",
-
-        "AI Matching",
-
-        "Worker Digital Twin",
-
-        "Community Hub",
-
-        "Quality Control",
-
-        "Trust & Safety",
-
-        "ESG Impact"
-
-        ]
-
-    )
-
-
-    st.sidebar.markdown(
-
-        """
-
-        ---
-
-        ### Platform Status
-
-
-        AI Engine:
-
-        Online
-
-
-        Verification:
-
-        Active
-
-
-        ESG Tracking:
-
-        Enabled
-
-        """
-
-    )
-
-
-    return page
+}
 
 
 
-def section_title(title, subtitle=None):
+/* Section */
+
+.section-title {
 
 
-    st.markdown(
+    font-size:24px;
 
-        f"""
+    font-weight:700;
 
-        <h2 style="
-        color:#0F172A;
-        margin-top:25px;
-        ">
+    margin-bottom:4px;
 
-        {title}
 
-        </h2>
+}
+
+
+
+.section-description {
+
+
+    color:#64748B;
+
+    font-size:14px;
+
+    margin-bottom:25px;
+
+
+}
+
+
+
+/* Enterprise card */
+
+.enterprise-card {
+
+
+    background:white;
+
+    padding:24px;
+
+    border-radius:16px;
+
+    border:
+    1px solid #E2E8F0;
+
+
+}
+
+
+
+.badge {
+
+
+    display:inline-block;
+
+    padding:
+    5px 12px;
+
+    border-radius:20px;
+
+    background:#DCFCE7;
+
+    color:#166534;
+
+    font-size:12px;
+
+    font-weight:600;
+
+
+}
+
+
+
+</style>
+
 
         """,
 
@@ -153,51 +190,218 @@ def section_title(title, subtitle=None):
     )
 
 
-    if subtitle:
 
-        st.caption(subtitle)
-
-
-
+# =====================================================
+# PAGE HEADER
+# =====================================================
 
 
-def metric_card(title,value):
+def page_header(
+        title,
+        subtitle=""
+):
 
 
     st.markdown(
 
         f"""
 
-        <div style="
-        background:#F8FAFC;
-        padding:20px;
-        border-radius:12px;
-        border:1px solid #E2E8F0;
-        ">
+<div>
+
+<h1 style="
+margin-bottom:5px;
+">
+
+{title}
+
+</h1>
 
 
-        <p style="
-        color:#64748B;
-        margin:0;
-        ">
+<div style="
+color:#64748B;
+font-size:15px;
+">
 
-        {title}
+{subtitle}
 
-        </p>
-
-
-        <h2 style="
-        color:#0F172A;
-        ">
-
-        {value}
-
-        </h2>
+</div>
 
 
-        </div>
+</div>
 
-        """,
+
+""",
+
+        unsafe_allow_html=True
+
+    )
+
+
+
+# =====================================================
+# SECTION TITLE
+# =====================================================
+
+
+def section_title(
+
+        title,
+
+        description=""
+
+):
+
+
+    st.markdown(
+
+        f"""
+
+<div class="section-title">
+
+{title}
+
+</div>
+
+
+<div class="section-description">
+
+{description}
+
+</div>
+
+
+""",
+
+        unsafe_allow_html=True
+
+    )
+
+
+
+# =====================================================
+# KPI CARD
+# =====================================================
+
+
+def metric_card(
+
+        title,
+
+        value,
+
+        description=""
+
+):
+
+
+    st.markdown(
+
+        f"""
+
+<div class="kpi-card">
+
+
+<div class="kpi-title">
+
+{title}
+
+</div>
+
+
+<div class="kpi-value">
+
+{value}
+
+</div>
+
+
+<div style="
+color:#64748B;
+font-size:13px;
+margin-top:8px;
+">
+
+{description}
+
+</div>
+
+
+</div>
+
+
+""",
+
+        unsafe_allow_html=True
+
+    )
+
+
+
+# =====================================================
+# ENTERPRISE BOX
+# =====================================================
+
+
+def enterprise_card(
+
+        title,
+
+        content
+
+):
+
+
+    st.markdown(
+
+        f"""
+
+<div class="enterprise-card">
+
+
+<h3>
+
+{title}
+
+</h3>
+
+
+<div>
+
+{content}
+
+</div>
+
+
+</div>
+
+
+""",
+
+        unsafe_allow_html=True
+
+    )
+
+
+
+# =====================================================
+# STATUS BADGE
+# =====================================================
+
+
+def status_badge(text):
+
+
+    st.markdown(
+
+        f"""
+
+<span class="badge">
+
+{text}
+
+</span>
+
+""",
 
         unsafe_allow_html=True
 
