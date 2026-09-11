@@ -1,4 +1,0 @@
-job_id,employer_id,title,required_skill,min_skill_level,hours_required,location
-J001,E001,Product Packaging,packaging,70,20,Hanoi
-J002,E003,Quality Inspection,quality_control,85,30,HCM
-J003,E002,Warehouse Support,logistics,80,25,Danang

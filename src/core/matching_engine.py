@@ -1,11 +1,15 @@
-import math
+"""
+SkillBridge AI
+Explainable Workforce Intelligence Engine
+"""
 
 
+def skill_matching(worker, job):
 
-def calculate_skill_score(worker, job):
-
-
-    required_skill = "Packaging"
+    required = job.get(
+        "required_skills",
+        []
+    )
 
 
     skills = worker.get(
@@ -14,24 +18,68 @@ def calculate_skill_score(worker, job):
     )
 
 
-    return skills.get(
-        required_skill,
-        0
+    scores = []
+
+
+    for skill in required:
+
+        scores.append(
+
+            skills.get(
+                skill,
+                0
+            )
+
+        )
+
+
+    if not scores:
+
+        return 0
+
+
+    return round(
+
+        sum(scores)/len(scores),
+
+        2
+
     )
 
 
 
+def reliability_score(worker):
 
-def calculate_availability_score(worker):
+    return worker["trust"]["reliability_score"]
 
 
-    availability = worker.get(
-        "availability",
-        ""
+
+def quality_prediction(worker):
+
+    performance = worker["performance"]
+
+
+    return round(
+
+        performance["quality_score"]*0.5
+
+        +
+
+        performance["completion_rate"]*0.3
+
+        +
+
+        performance["feedback_score"]*0.2,
+
+        2
+
     )
 
 
-    if availability:
+
+def availability_score(worker):
+
+    if worker.get("availability"):
 
         return 100
 
@@ -40,75 +88,65 @@ def calculate_availability_score(worker):
 
 
 
-
-def calculate_reliability_score(worker):
-
-
-    return worker.get(
-        "reliability",
-        0
-    )
-
-
-
-
-def calculate_quality_score(worker):
-
-
-    # Sau này lấy từ quality history database
-
-    return 95
-
-
-
-
 def calculate_match(worker, job):
 
 
-    skill_score = calculate_skill_score(
+    skill = skill_matching(
+
         worker,
+
         job
+
     )
 
 
-    availability_score = calculate_availability_score(
+    reliability = reliability_score(
+
         worker
+
     )
 
 
-    reliability_score = calculate_reliability_score(
+    quality = quality_prediction(
+
         worker
+
     )
 
 
-    quality_score = calculate_quality_score(
+    availability = availability_score(
+
         worker
+
     )
 
 
 
-    final_score = (
+    score = (
 
-        skill_score * 0.4
+        skill*0.4
 
         +
 
-        availability_score * 0.2
+        availability*0.2
 
         +
 
-        reliability_score * 0.2
+        reliability*0.2
 
         +
 
-        quality_score * 0.2
+        quality*0.2
 
     )
 
 
     return round(
-        final_score,
+
+        score,
+
         2
+
     )
 
 
@@ -118,33 +156,28 @@ def explain_match(worker, job):
 
     return {
 
-
         "Skill Compatibility":
 
-            calculate_skill_score(
-                worker,
-                job
-            ),
+            skill_matching(worker,job),
 
 
         "Availability":
 
-            calculate_availability_score(
-                worker
-            ),
+            availability_score(worker),
 
 
         "Reliability":
 
-            calculate_reliability_score(
-                worker
-            ),
+            reliability_score(worker),
 
 
-        "Quality History":
+        "Quality Prediction":
 
-            calculate_quality_score(
-                worker
-            )
+            quality_prediction(worker),
+
+
+        "Final AI Confidence":
+
+            calculate_match(worker,job)
 
     }

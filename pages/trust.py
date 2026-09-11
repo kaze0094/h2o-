@@ -1,274 +1,117 @@
 import streamlit as st
-import pandas as pd
-import plotly.express as px
 
-from components.layout import page_title
+from components.layout import (
+    section_title,
+    metric_card
+)
+
+from services.trust_service import (
+    get_entity_trust
+)
 
 
 
 def show_trust():
 
 
-    page_title(
+    section_title(
 
-        "Trust & Safety System",
+        "Trust & Safety Infrastructure",
 
-        "Building reliable connections between enterprises, communities and workers"
+        "Verification system for enterprises and workforce reliability"
 
     )
 
 
-    # =================================
-    # TRUST OVERVIEW
-    # =================================
+    trust = get_entity_trust(
 
-
-    st.markdown(
-        '<div class="section-title">Trust Intelligence Overview</div>',
-        unsafe_allow_html=True
-    )
-
-
-    c1,c2,c3,c4 = st.columns(4)
-
-
-    metrics = [
-
-        ("Verified Enterprises","328"),
-
-        ("Verified Workers","12,580"),
-
-        ("Fraud Detection Rate","99.2%"),
-
-        ("Successful Projects","95%")
-
-    ]
-
-
-    for col,item in zip(
-        [c1,c2,c3,c4],
-        metrics
-    ):
-
-        with col:
-
-            st.markdown(
-
-                f"""
-
-                <div class="sb-card">
-
-
-                <div class="sb-card-title">
-
-                {item[0]}
-
-                </div>
-
-
-                <div class="sb-card-value">
-
-                {item[1]}
-
-                </div>
-
-
-                </div>
-
-                """,
-
-                unsafe_allow_html=True
-
-            )
-
-
-
-    st.write("")
-
-
-
-    # =================================
-    # ENTERPRISE VERIFICATION
-    # =================================
-
-
-    st.markdown(
-        '<div class="section-title">Enterprise Verification</div>',
-        unsafe_allow_html=True
-    )
-
-
-    enterprise = pd.DataFrame({
-
-        "Company":[
-
-            "ABC Manufacturing",
-
-            "XYZ Electronics",
-
-            "Green Product Co."
-
-        ],
-
-        "Business Verification":[
-
-            100,
-
-            100,
-
-            95
-
-        ],
-
-        "Payment Reliability":[
-
-            98,
-
-            96,
-
-            92
-
-        ],
-
-        "Trust Score":[
-
-            96,
-
-            94,
-
-            91
-
-        ]
-
-    })
-
-
-    st.dataframe(
-
-        enterprise,
-
-        use_container_width=True,
-
-        hide_index=True
+        "E001"
 
     )
 
 
+    if not trust:
 
-    # =================================
-    # RISK DETECTION
-    # =================================
+        st.error(
+            "Trust data unavailable"
+        )
 
-
-    st.markdown(
-        '<div class="section-title">AI Risk Detection</div>',
-        unsafe_allow_html=True
-    )
-
-
-    risks = pd.DataFrame({
-
-        "Category":[
-
-            "Suspicious Payment Request",
-
-            "Unusual Salary Pattern",
-
-            "Identity Verification"
-
-        ],
-
-        "Status":[
-
-            "No Risk",
-
-            "No Risk",
-
-            "Verified"
-
-        ]
-
-    })
-
-
-    st.dataframe(
-
-        risks,
-
-        use_container_width=True,
-
-        hide_index=True
-
-    )
+        return
 
 
 
-    # =================================
-    # TRUST MODEL
-    # =================================
+    c1,c2,c3 = st.columns(3)
 
 
-    st.markdown(
-        '<div class="section-title">Trust Score Model</div>',
-        unsafe_allow_html=True
-    )
 
+    with c1:
 
-    trust = pd.DataFrame({
-
-        "Factor":[
+        metric_card(
 
             "Verification",
 
-            "Payment Reliability",
+            "Verified"
 
-            "Project History",
-
-            "Community Feedback"
-
-        ],
-
-        "Weight":[
-
-            30,
-
-            30,
-
-            20,
-
-            20
-
-        ]
-
-    })
+        )
 
 
-    fig = px.pie(
+    with c2:
 
-        trust,
+        metric_card(
 
-        names="Factor",
+            "Trust Score",
 
-        values="Weight",
+            trust["trust_score"]
 
-        title="Enterprise Trust Score Components"
-
-    )
+        )
 
 
-    fig.update_layout(
+    with c3:
 
-        template="plotly_white",
+        metric_card(
 
-        height=350
+            "Safety Status",
+
+            "Active"
+
+        )
+
+
+
+    st.divider()
+
+
+    st.subheader(
+
+        "Verification Framework"
 
     )
 
 
-    st.plotly_chart(
+    st.write(
 
-        fig,
+        """
 
-        use_container_width=True
+        Enterprise verification:
+
+        ✓ Business identity verification
+
+
+        Workforce verification:
+
+        ✓ Skill validation
+
+        ✓ Performance history
+
+        ✓ Reputation tracking
+
+
+        Transaction protection:
+
+        ✓ Quality monitoring
+
+        ✓ Completion tracking
+
+        """
 
     )

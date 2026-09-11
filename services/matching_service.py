@@ -4,8 +4,15 @@ from core.matching_engine import (
 )
 
 
+from services.community_service import (
+    get_communities
+)
 
-def run_matching(job, workers):
+
+def match_workers(
+    job,
+    workers
+):
 
 
     results = []
@@ -23,15 +30,6 @@ def run_matching(job, workers):
         )
 
 
-        explanation = explain_match(
-
-            worker,
-
-            job
-
-        )
-
-
         results.append(
 
             {
@@ -41,19 +39,25 @@ def run_matching(job, workers):
                 worker["worker_id"],
 
 
-            "worker_name":
+            "name":
 
                 worker["name"],
 
 
-            "match_score":
+            "score":
 
                 score,
 
 
             "explanation":
 
-                explanation
+                explain_match(
+
+                    worker,
+
+                    job
+
+                )
 
             }
 
@@ -64,7 +68,7 @@ def run_matching(job, workers):
 
         key=lambda x:
 
-        x["match_score"],
+        x["score"],
 
         reverse=True
 
@@ -75,21 +79,62 @@ def run_matching(job, workers):
 
 
 
-def get_best_match(job, workers):
+def match_communities():
+
+    communities = get_communities()
 
 
-    results = run_matching(
+    results = []
 
-        job,
 
-        workers
+    for c in communities:
+
+
+        performance = c["performance"]
+
+
+        score = (
+
+            performance["quality_score"]*0.4
+
+            +
+
+            performance["completion_rate"]*0.3
+
+            +
+
+            performance["reliability_score"]*0.3
+
+        )
+
+
+        results.append(
+
+            {
+
+            "community":
+
+                c["name"],
+
+
+            "score":
+
+                round(score,2)
+
+            }
+
+        )
+
+
+    results.sort(
+
+        key=lambda x:
+
+        x["score"],
+
+        reverse=True
 
     )
 
 
-    if results:
-
-        return results[0]
-
-
-    return None
+    return results

@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
 
-from components.layout import page_title
+from components.layout import (
+    section_title,
+    metric_card
+)
 
 from services.enterprise_service import (
     get_enterprise
@@ -12,195 +15,82 @@ from services.job_service import (
 )
 
 
-
 def show_enterprise():
 
 
-    page_title(
-
+    section_title(
         "Enterprise Workforce Request",
-
         "Convert business demand into an AI-optimized workforce requirement"
-
     )
 
 
-    # =====================================
-    # LOAD DATA
-    # =====================================
-
-
-    enterprise_id = "E001"
-
-    job_id = "J001"
-
-
     enterprise = get_enterprise(
-        enterprise_id
+        "E001"
     )
 
 
     job = get_job(
-        job_id
+        "J001"
     )
 
 
-
-    if enterprise is None or job is None:
+    if not enterprise or not job:
 
         st.error(
-            "Enterprise or Job data unavailable"
+            "Enterprise data unavailable"
         )
 
         return
 
 
 
-    # =====================================
-    # ENTERPRISE PROFILE
-    # =====================================
+    # Enterprise Overview
 
-
-    st.markdown(
-
-        '<div class="section-title">Verified Enterprise Profile</div>',
-
-        unsafe_allow_html=True
-
-    )
-
-
-    c1,c2 = st.columns(2)
-
+    c1,c2,c3 = st.columns(3)
 
 
     with c1:
 
-
-        st.markdown(
-
-            f"""
-
-            <div class="sb-card">
-
-
-            <div class="sb-card-title">
-
-            Company
-
-            </div>
-
-
-            <h2>
-
-            {enterprise["name"]}
-
-            </h2>
-
-
-            <p>
-
-            Industry:
-
-            <b>
-            {enterprise["industry"]}
-            </b>
-
-
-            </p>
-
-
-            <p>
-
-            Verification:
-
-            <b style="color:#16A34A">
-
-            Verified
-
-            </b>
-
-
-            </p>
-
-
-            </div>
-
-
-            """,
-
-            unsafe_allow_html=True
-
+        metric_card(
+            "Enterprise",
+            enterprise["name"]
         )
-
 
 
     with c2:
 
-
-        st.markdown(
-
-            f"""
-
-            <div class="sb-card">
-
-
-            <div class="sb-card-title">
-
-            Enterprise Trust Score
-
-            </div>
+        metric_card(
+            "Trust Score",
+            str(
+                enterprise["trust_score"]
+            )
+        )
 
 
-            <div class="sb-card-value">
+    with c3:
 
-            {enterprise["trust_score"]}
-
-            </div>
-
-
-            <div class="sb-card-desc">
-
-            Trusted partner
-
-            </div>
-
-
-            </div>
-
-
-            """,
-
-            unsafe_allow_html=True
-
+        metric_card(
+            "Verification",
+            "Verified"
         )
 
 
 
-    st.write("")
+    st.divider()
 
 
-
-    # =====================================
-    # JOB DIGITAL TWIN
-    # =====================================
-
-
-    st.markdown(
-
-        '<div class="section-title">Generated Job Digital Twin</div>',
-
-        unsafe_allow_html=True
-
+    section_title(
+        "Job Digital Twin"
     )
 
 
-
-    job_table = pd.DataFrame(
+    job_df = pd.DataFrame(
 
         {
 
-        "Parameter":[
+        "Parameter":
+
+        [
 
             "Task",
 
@@ -208,84 +98,28 @@ def show_enterprise():
 
             "Duration",
 
-            "Required Workers",
+            "Workers Required",
 
-            "Quality Standard"
+            "Required Skills"
 
         ],
 
 
-        "Value":[
+        "Value":
+
+        [
 
             job["task"],
 
-            f'{job["quantity"]} units',
+            f'{job["quantity"]:,} units',
 
             job["duration"],
 
-            job["workers_required"],
+            job["required_workers"],
 
-            job["quality_standard"]
-
-        ]
-
-        }
-
-    )
-
-
-    st.dataframe(
-
-        job_table,
-
-        use_container_width=True,
-
-        hide_index=True
-
-    )
-
-
-
-    # =====================================
-    # AI TASK ANALYSIS
-    # =====================================
-
-
-    st.markdown(
-
-        '<div class="section-title">AI Requirement Analysis</div>',
-
-        unsafe_allow_html=True
-
-    )
-
-
-    analysis = pd.DataFrame(
-
-        {
-
-        "Factor":[
-
-            "Required Skill",
-
-            "Workforce Size",
-
-            "Quality Level",
-
-            "Time Constraint"
-
-        ],
-
-
-        "AI Assessment":[
-
-            "Packaging + Quality Inspection",
-
-            "30 workers",
-
-            "Error <2%",
-
-            "14 days"
+            ", ".join(
+                job["required_skills"]
+            )
 
         ]
 
@@ -296,64 +130,23 @@ def show_enterprise():
 
     st.dataframe(
 
-        analysis,
+        job_df,
 
-        use_container_width=True,
+        hide_index=True,
 
-        hide_index=True
-
-    )
-
-
-
-    # =====================================
-    # BUSINESS VALUE
-    # =====================================
-
-
-    st.markdown(
-
-        '<div class="section-title">Business Impact</div>',
-
-        unsafe_allow_html=True
+        use_container_width=True
 
     )
 
 
-    c1,c2,c3 = st.columns(3)
 
+    st.success(
 
+        """
+        AI has transformed enterprise demand
+        into a structured workforce requirement.
 
-    with c1:
+        Ready for workforce intelligence matching.
+        """
 
-        st.metric(
-
-            "Traditional Hiring Time",
-
-            "14-21 days"
-
-        )
-
-
-
-    with c2:
-
-        st.metric(
-
-            "SkillBridge Response",
-
-            "24-48 hours"
-
-        )
-
-
-
-    with c3:
-
-        st.metric(
-
-            "Workforce Flexibility",
-
-            "+40%"
-
-        )
+    )

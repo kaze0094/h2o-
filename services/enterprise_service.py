@@ -1,79 +1,45 @@
-import json
-from pathlib import Path
-
-
-DATA_FILE = Path(
-    "data/enterprises.json"
-)
+from services.data_loader import load_json
 
 
 
-def load_enterprises():
+def get_enterprises():
 
-    with open(
-        DATA_FILE,
-        "r",
-        encoding="utf-8"
-    ) as file:
-
-        return json.load(file)
+    return load_json(
+        "enterprises.json"
+    )
 
 
 
-def get_all_enterprises():
+def get_enterprise(
+    enterprise_id
+):
 
-    return load_enterprises()
-
-
-
-def get_enterprise(company_id):
-
-    enterprises = load_enterprises()
+    enterprises = get_enterprises()
 
 
-    for company in enterprises:
+    for enterprise in enterprises:
 
-        if company["enterprise_id"] == company_id:
+        if enterprise["enterprise_id"] == enterprise_id:
 
-            return company
+            return enterprise
 
 
     return None
 
 
 
-def get_verified_enterprises():
+def get_enterprise_trust(
+    enterprise_id
+):
 
-    enterprises = load_enterprises()
-
-
-    return len(
-        [
-            e
-            for e in enterprises
-            if e["status"]=="verified"
-        ]
+    enterprise = get_enterprise(
+        enterprise_id
     )
 
 
+    if enterprise:
 
-def get_average_trust_score():
-
-    enterprises = load_enterprises()
-
-
-    if not enterprises:
-
-        return 0
+        return enterprise["trust_score"]
 
 
-    score = sum(
-        e["trust_score"]
-        for e in enterprises
-    )
-
-
-    return round(
-        score / len(enterprises),
-        1
-    )
+    return 0

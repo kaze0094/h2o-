@@ -1,21 +1,19 @@
-import json
-from pathlib import Path
+from services.data_loader import load_json
 
 
-DATA_PATH = Path("data/workers.json")
 
+def get_all_workers():
 
-def load_workers():
-
-    with open(DATA_PATH, "r", encoding="utf-8") as f:
-
-        return json.load(f)
+    return load_json(
+        "workers.json"
+    )
 
 
 
 def get_worker(worker_id):
 
-    workers = load_workers()
+    workers = get_all_workers()
+
 
     for worker in workers:
 
@@ -23,23 +21,63 @@ def get_worker(worker_id):
 
             return worker
 
+
     return None
 
 
 
-def get_total_workers():
+def get_workers_by_community(
+    community_id
+):
 
-    return len(load_workers())
+    workers = get_all_workers()
+
+
+    return [
+
+        worker
+
+        for worker in workers
+
+        if worker["community_id"]
+        ==
+        community_id
+
+    ]
 
 
 
-def get_verified_workers():
+def get_worker_profile(worker_id):
 
-    workers = load_workers()
-
-    return len(
-        [
-            w for w in workers
-            if w["status"]=="verified"
-        ]
+    worker = get_worker(
+        worker_id
     )
+
+
+    if not worker:
+
+        return None
+
+
+    return {
+
+        "name":
+
+            worker["name"],
+
+
+        "skills":
+
+            worker["skills"],
+
+
+        "performance":
+
+            worker["performance"],
+
+
+        "trust":
+
+            worker["trust"]
+
+    }

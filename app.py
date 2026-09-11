@@ -1,12 +1,12 @@
 import streamlit as st
 
-from components.theme import apply_global_style
-from components.layout import render_sidebar, render_header
+
+from components.layout import (
+    render_header,
+    render_sidebar
+)
 
 
-# ==================================================
-# PAGE CONFIGURATION
-# ==================================================
 
 st.set_page_config(
 
@@ -21,83 +21,81 @@ st.set_page_config(
 )
 
 
-# ==================================================
-# GLOBAL STYLE
-# ==================================================
 
-apply_global_style()
+def main():
 
 
-# ==================================================
-# HEADER
-# ==================================================
-
-render_header()
+    render_header()
 
 
-# ==================================================
-# SIDEBAR NAVIGATION
-# ==================================================
-
-selected_page = render_sidebar()
+    selected_page = render_sidebar()
 
 
 
-# ==================================================
-# PAGE ROUTING
-# ==================================================
+    if selected_page == "Overview":
 
+        from pages.dashboard import show_dashboard
 
-if selected_page == "Overview":
-
-    from pages.dashboard import show_dashboard
-
-    show_dashboard()
+        show_dashboard()
 
 
 
-elif selected_page == "Worker Digital Twin":
+    elif selected_page == "Enterprise Request":
 
-    from pages.worker_twin import show_worker_twin
+        from pages.enterprise import show_enterprise
 
-    show_worker_twin()
-
-
-
-elif selected_page == "Enterprise Requests":
-
-    from pages.enterprise import show_enterprise
-
-    show_enterprise()
+        show_enterprise()
 
 
 
-elif selected_page == "AI Matching":
+    elif selected_page == "AI Matching":
 
-    from pages.matching import show_matching
+        from pages.matching import show_matching
 
-    show_matching()
-
-
-
-elif selected_page == "Community Hub":
-
-    from pages.community import show_community
-
-    show_community()
+        show_matching()
 
 
 
-elif selected_page == "Quality Control":
+    elif selected_page == "Worker Digital Twin":
 
-    from pages.quality import show_quality
+        from pages.worker_twin import show_worker_twin
 
-    show_quality()
+        show_worker_twin()
 
 
 
-elif selected_page == "Impact Analytics":
+    elif selected_page == "Community Hub":
 
-    from pages.impact import show_impact
+        from pages.community import show_community
 
-    show_impact()
+        show_community()
+
+
+
+    elif selected_page == "Quality Control":
+
+        from pages.quality import show_quality
+
+        show_quality()
+
+
+
+    elif selected_page == "Trust & Safety":
+
+        from pages.trust import show_trust
+
+        show_trust()
+
+
+
+    elif selected_page == "ESG Impact":
+
+        from pages.impact import show_impact
+
+        show_impact()
+
+
+
+if __name__ == "__main__":
+
+    main()

@@ -1,339 +1,123 @@
 import streamlit as st
-import pandas as pd
-import plotly.express as px
 
-from components.layout import page_title
+from components.layout import (
+    section_title,
+    metric_card
+)
+
+from services.quality_service import (
+    get_project
+)
+
+from core.risk_engine import (
+    calculate_project_risk
+)
 
 
 
 def show_quality():
 
 
-    page_title(
+    section_title(
 
-        "Quality Control Center",
+        "Quality Control Intelligence",
 
-        "AI-powered quality monitoring for distributed workforce production"
+        "Monitor production quality through workforce performance data"
 
     )
 
 
-    # =====================================
-    # PROJECT OVERVIEW
-    # =====================================
+    project = get_project(
 
+        "P001"
 
-    st.markdown(
-        '<div class="section-title">Active Production Project</div>',
-        unsafe_allow_html=True
     )
 
 
-    c1,c2,c3,c4 = st.columns(4)
+    if not project:
 
+        st.error(
+            "Project unavailable"
+        )
 
-    metrics = [
+        return
 
-        ("Project","ABC Packaging"),
 
-        ("Order Size","10,000 units"),
 
-        ("Completion","72%"),
+    risk = calculate_project_risk(
 
-        ("Quality Confidence","96%")
-
-    ]
-
-
-    for col,item in zip(
-        [c1,c2,c3,c4],
-        metrics
-    ):
-
-        with col:
-
-            st.markdown(
-
-                f"""
-
-                <div class="sb-card">
-
-
-                <div class="sb-card-title">
-
-                {item[0]}
-
-                </div>
-
-
-                <div class="sb-card-value">
-
-                {item[1]}
-
-                </div>
-
-
-                </div>
-
-                """,
-
-                unsafe_allow_html=True
-
-            )
-
-
-
-    st.write("")
-
-
-
-    # =====================================
-    # BATCH MONITORING
-    # =====================================
-
-
-    st.markdown(
-        '<div class="section-title">Production Batch Monitoring</div>',
-        unsafe_allow_html=True
-    )
-
-
-    batches = pd.DataFrame({
-
-        "Batch":[
-
-            "Batch 001",
-
-            "Batch 002",
-
-            "Batch 003",
-
-            "Batch 004"
-
-        ],
-
-        "Quantity":[
-
-            2500,
-
-            2500,
-
-            2500,
-
-            2500
-
-        ],
-
-        "Status":[
-
-            "Completed",
-
-            "Completed",
-
-            "Quality Review",
-
-            "Processing"
-
-        ],
-
-        "Quality Score":[
-
-            98,
-
-            96,
-
-            91,
-
-            95
-
-        ]
-
-    })
-
-
-    st.dataframe(
-
-        batches,
-
-        use_container_width=True,
-
-        hide_index=True
+        project
 
     )
 
 
 
-    # =====================================
-    # QUALITY ANALYTICS
-    # =====================================
+    c1,c2,c3 = st.columns(3)
 
 
-    st.markdown(
-        '<div class="section-title">AI Quality Analytics</div>',
-        unsafe_allow_html=True
-    )
+
+    with c1:
+
+        metric_card(
+
+            "Completion",
+
+            f'{project["progress"]}%'
+
+        )
 
 
-    quality = pd.DataFrame({
+    with c2:
 
-        "Metric":[
+        metric_card(
 
-            "Packaging Accuracy",
+            "Quality Score",
 
-            "Completion Rate",
+            f'{project["quality_score"]}%'
 
-            "Worker Reliability",
-
-            "Previous Quality"
-
-        ],
-
-        "Score":[
-
-            97,
-
-            94,
-
-            95,
-
-            96
-
-        ]
-
-    })
+        )
 
 
-    fig = px.bar(
+    with c3:
 
-        quality,
+        metric_card(
 
-        x="Metric",
+            "Risk Level",
 
-        y="Score",
+            risk["risk"]
 
-        title="Quality Intelligence Score"
+        )
+
+
+
+    st.divider()
+
+
+
+    st.subheader(
+
+        "Production Assurance"
 
     )
 
 
-    fig.update_layout(
+    st.write(
 
-        template="plotly_white",
+        f"""
 
-        height=350
+        Current production:
 
-    )
-
-
-    st.plotly_chart(
-
-        fig,
-
-        use_container_width=True
-
-    )
+        {project["progress"]}% completed
 
 
+        Defect rate:
 
-    # =====================================
-    # AI RISK PREDICTION
-    # =====================================
-
-
-    st.markdown(
-        '<div class="section-title">AI Quality Prediction</div>',
-        unsafe_allow_html=True
-    )
+        {project["defect_rate"]}%
 
 
-    st.markdown(
+        AI assessment:
 
-        """
-
-        <div class="sb-card">
-
-
-        <h3>
-
-        Production Risk Assessment
-
-        </h3>
-
-
-        <p>
-
-        Predicted final quality:
-
-        <b>96%</b>
-
-        </p>
-
-
-        <p>
-
-        Estimated defect rate:
-
-        <b>1.8%</b>
-
-        </p>
-
-
-        <p>
-
-        Delay probability:
-
-        <b>Low</b>
-
-        </p>
-
-
-        <p style="
-        color:#16A34A;
-        font-weight:600;
-        ">
-
-        Recommendation:
-
-        Continue current workforce allocation.
-
-        </p>
-
-
-        </div>
-
-        """,
-
-        unsafe_allow_html=True
-
-    )
-
-
-
-    # =====================================
-    # FEEDBACK LOOP
-    # =====================================
-
-
-    st.markdown(
-        '<div class="section-title">Continuous Learning Loop</div>',
-        unsafe_allow_html=True
-    )
-
-
-    st.info(
-
-        """
-        Quality results continuously improve:
-
-        Worker reliability score
-
-        →
-
-        AI matching accuracy
-
-        →
-
-        Future production quality
+        {risk["risk"]} risk
 
         """
 

@@ -1,28 +1,20 @@
-import json
-from pathlib import Path
-
-
-DATA_FILE = Path(
-    "data/projects.json"
-)
+from services.data_loader import load_json
 
 
 
-def load_projects():
+def get_projects():
 
-    with open(
-        DATA_FILE,
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        return json.load(f)
+    return load_json(
+        "projects.json"
+    )
 
 
 
-def get_project(project_id):
+def get_project(
+    project_id
+):
 
-    projects = load_projects()
+    projects = get_projects()
 
 
     for project in projects:
@@ -33,45 +25,3 @@ def get_project(project_id):
 
 
     return None
-
-
-
-def get_quality_score(project_id):
-
-    project = get_project(
-        project_id
-    )
-
-    if project:
-
-        return project["quality_score"]
-
-    return 0
-
-
-
-def get_quality_risk(project_id):
-
-    project = get_project(
-        project_id
-    )
-
-    if project:
-
-        return project["risk_level"]
-
-    return "Unknown"
-
-
-
-def get_completion_rate(project_id):
-
-    project = get_project(
-        project_id
-    )
-
-    if project:
-
-        return project["completion"]
-
-    return 0

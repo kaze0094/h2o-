@@ -1,10 +1,30 @@
 [
- {
-  "community_id":"C001",
-  "name":"Bac Ninh Women Workforce Hub",
-  "workers":250,
-  "certified_workers":180,
-  "capacity":"5000 units/week",
-  "quality_score":97
- }
+    {
+        "community_id": "C001",
+
+        "name": "Bac Ninh Women Workforce Hub",
+
+        "location": "Bac Ninh",
+
+
+        "worker_capacity": 250,
+
+
+        "production_capacity": 5000,
+
+
+        "performance": {
+
+            "quality_score": 97,
+
+            "completion_rate": 95,
+
+            "reliability_score": 96
+
+        },
+
+
+        "verification": "Verified Community Partner"
+
+    }
 ]

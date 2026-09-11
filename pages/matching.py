@@ -1,24 +1,34 @@
 import streamlit as st
 import pandas as pd
 
-from components.layout import page_title
+from components.layout import (
+    section_title,
+    metric_card
+)
 
-from services.job_service import get_job
+from services.job_service import (
+    get_job
+)
 
-from services.worker_service import get_all_workers
+from services.worker_service import (
+    get_all_workers
+)
 
-from services.matching_service import run_matching
+from services.matching_service import (
+    match_workers,
+    match_communities
+)
 
 
 
 def show_matching():
 
 
-    page_title(
+    section_title(
 
-        "AI Matching Engine",
+        "AI Workforce Recommendation Engine",
 
-        "Explainable AI workforce allocation"
+        "Explainable AI for trusted workforce allocation"
 
     )
 
@@ -31,8 +41,75 @@ def show_matching():
     workers = get_all_workers()
 
 
+    # COMMUNITY MATCHING
 
-    results = run_matching(
+    st.subheader(
+        "Step 1 — Community Network Matching"
+    )
+
+
+    communities = match_communities()
+
+
+
+    community_df = pd.DataFrame(
+
+        communities
+
+    )
+
+
+    st.dataframe(
+
+        community_df,
+
+        hide_index=True,
+
+        use_container_width=True
+
+    )
+
+
+
+    best = communities[0]
+
+
+
+    st.success(
+
+        f"""
+
+        Recommended Workforce Hub:
+
+
+        {best["community"]}
+
+
+        AI Confidence:
+
+        {best["score"]}%
+
+        """
+
+    )
+
+
+
+    st.divider()
+
+
+
+    # WORKER MATCHING
+
+
+    st.subheader(
+
+        "Step 2 — Worker Capability Ranking"
+
+    )
+
+
+    results = match_workers(
 
         job,
 
@@ -41,31 +118,23 @@ def show_matching():
     )
 
 
-
-    st.markdown(
-
-        "### Ranked Workforce Recommendation"
-
-    )
-
-
-
-    table = pd.DataFrame(
+    df = pd.DataFrame(
 
         [
 
             {
 
-            "Worker":
+                "Worker":
 
-            r["worker_name"],
+                r["name"],
 
 
-            "Match Score":
+                "AI Match":
 
-            f'{r["match_score"]}%'
+                f'{r["score"]}%'
 
             }
+
 
             for r in results
 
@@ -76,7 +145,9 @@ def show_matching():
 
     st.dataframe(
 
-        table,
+        df,
+
+        hide_index=True,
 
         use_container_width=True
 
@@ -84,40 +155,29 @@ def show_matching():
 
 
 
+    st.divider()
+
+
+
+    # EXPLANATION
+
+
     if results:
 
 
-        best = results[0]
+        top = results[0]
 
 
-        st.success(
+        st.subheader(
 
-            f"""
-
-            Recommended:
-
-            {best["worker_name"]}
-
-
-            Match Score:
-
-            {best["match_score"]}%
-
-            """
-
-        )
-
-
-        st.markdown(
-
-            "### Explainable AI"
+            "Why AI Selected This Worker?"
 
         )
 
 
         explanation = pd.DataFrame(
 
-            best["explanation"].items(),
+            top["explanation"].items(),
 
             columns=[
 
@@ -134,6 +194,27 @@ def show_matching():
 
             explanation,
 
+            hide_index=True,
+
             use_container_width=True
+
+        )
+
+
+        st.success(
+
+            f"""
+
+            Recommended Worker:
+
+
+            {top["name"]}
+
+
+            Overall Confidence:
+
+            {top["score"]}%
+
+            """
 
         )

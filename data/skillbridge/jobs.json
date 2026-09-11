@@ -1,11 +1,44 @@
 [
- {
-  "job_id":"J001",
-  "enterprise_id":"E001",
-  "task":"Product Packaging",
-  "quantity":10000,
-  "duration":"14 days",
-  "workers_required":30,
-  "quality_standard":"Error <2%"
- }
+    {
+        "job_id": "J001",
+
+        "enterprise_id": "E001",
+
+
+        "task":
+
+        "Product Packaging",
+
+
+        "quantity":
+
+        10000,
+
+
+        "duration":
+
+        "14 days",
+
+
+        "required_workers":
+
+        30,
+
+
+        "required_skills":
+
+        [
+
+            "Packaging",
+
+            "Quality Inspection"
+
+        ],
+
+
+        "quality_requirement":
+
+        "Error rate <2%"
+
+    }
 ]

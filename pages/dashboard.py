@@ -1,390 +1,170 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 
-from components.layout import page_title
+from components.layout import (
+    section_title,
+    metric_card
+)
+
+from services.worker_service import (
+    get_all_workers
+)
+
+from services.enterprise_service import (
+    get_enterprises
+)
+
+from services.quality_service import (
+    get_projects
+)
+
+from services.impact_service import (
+    get_impacts
+)
 
 
 
 def show_dashboard():
 
 
-    page_title(
-        "Workforce Intelligence Overview",
-        "AI-powered Human Capital Digital Twin for inclusive workforce networks"
+    section_title(
+
+        "Executive Intelligence Dashboard",
+
+        "Real-time overview of inclusive workforce ecosystem"
+
     )
 
 
-    # ==================================================
-    # MOCK DATA LAYER
-    # Sau này thay bằng service layer
-    # ==================================================
+    workers = get_all_workers()
+
+    enterprises = get_enterprises()
+
+    projects = get_projects()
+
+    impacts = get_impacts()
 
 
-    workers = pd.DataFrame({
 
-        "Region":[
-            "Bac Ninh",
-            "Thai Nguyen",
-            "Hai Duong",
-            "Quang Ninh"
-        ],
-
-        "Workers":[
-            250,
-            180,
-            210,
-            140
-        ],
-
-        "Certified":[
-            180,
-            120,
-            150,
-            95
-        ]
-
-    })
-
-
-    demand = pd.DataFrame({
-
-        "Month":[
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May"
-        ],
-
-        "Demand":[
-            120,
-            180,
-            240,
-            320,
-            410
-        ]
-
-    })
-
-
-    # ==================================================
-    # KPI SECTION
-    # ==================================================
-
-
-    st.markdown(
-        '<div class="section-title">Platform Performance</div>',
-        unsafe_allow_html=True
-    )
+    # =========================
+    # KPI
+    # =========================
 
 
     c1,c2,c3,c4 = st.columns(4)
 
 
+
     with c1:
 
-        st.markdown(
-            """
-            <div class="sb-card">
+        metric_card(
 
-            <div class="sb-card-title">
-            Active Workforce
-            </div>
+            "Verified Workers",
 
-            <div class="sb-card-value">
-            12,580
-            </div>
+            len(workers)
 
-            <div class="sb-card-desc">
-            Verified workers
-            </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
         )
 
 
     with c2:
 
-        st.markdown(
-            """
-            <div class="sb-card">
+        metric_card(
 
-            <div class="sb-card-title">
-            Enterprise Requests
-            </div>
+            "Enterprise Partners",
 
-            <div class="sb-card-value">
-            328
-            </div>
+            len(enterprises)
 
-            <div class="sb-card-desc">
-            Active projects
-            </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
         )
 
 
     with c3:
 
-        st.markdown(
-            """
-            <div class="sb-card">
+        metric_card(
 
-            <div class="sb-card-title">
-            AI Matching Accuracy
-            </div>
+            "Active Projects",
 
-            <div class="sb-card-value">
-            94.6%
-            </div>
+            len(projects)
 
-            <div class="sb-card-desc">
-            Average confidence
-            </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
         )
 
 
     with c4:
 
-        st.markdown(
-            """
-            <div class="sb-card">
+        metric_card(
 
-            <div class="sb-card-title">
-            Social Impact
-            </div>
+            "Social Impact",
 
-            <div class="sb-card-value">
-            ¥8.6M
-            </div>
-
-            <div class="sb-card-desc">
-            Income generated
-            </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-
-
-    st.write("")
-
-
-    # ==================================================
-    # COMMUNITY MAP + FORECAST
-    # ==================================================
-
-
-    left,right = st.columns([1,1])
-
-
-    with left:
-
-
-        st.markdown(
-            '<div class="section-title">Community Workforce Network</div>',
-            unsafe_allow_html=True
-        )
-
-
-        fig = px.bar(
-
-            workers,
-
-            x="Region",
-
-            y="Workers",
-
-            title="Verified Workforce by Region"
-
-        )
-
-
-        fig.update_layout(
-
-            height=350,
-
-            template="plotly_white",
-
-            showlegend=False
-
-        )
-
-
-        st.plotly_chart(
-
-            fig,
-
-            use_container_width=True
+            f'¥{impacts[0]["income_generated"]:,}'
 
         )
 
 
 
-    with right:
-
-
-        st.markdown(
-            '<div class="section-title">AI Workforce Demand Forecast</div>',
-            unsafe_allow_html=True
-        )
-
-
-        fig2 = px.line(
-
-            demand,
-
-            x="Month",
-
-            y="Demand",
-
-            markers=True,
-
-            title="Projected Enterprise Workforce Demand"
-
-        )
-
-
-        fig2.update_layout(
-
-            height=350,
-
-            template="plotly_white"
-
-        )
-
-
-        st.plotly_chart(
-
-            fig2,
-
-            use_container_width=True
-
-        )
+    st.divider()
 
 
 
-    # ==================================================
-    # AI RECOMMENDATION
-    # ==================================================
+    # =========================
+    # PLATFORM VALUE
+    # =========================
 
 
-    st.markdown(
-        '<div class="section-title">AI Recommendation Engine</div>',
-        unsafe_allow_html=True
+    section_title(
+        "Platform Value Creation"
     )
 
 
-    st.markdown(
+    value = pd.DataFrame(
+
+        {
+
+        "Metric":[
+
+            "Workforce Access",
+
+            "Quality Assurance",
+
+            "Business Flexibility",
+
+            "Social Inclusion"
+
+        ],
+
+
+        "Impact":[
+
+            "Connects invisible workforce",
+
+            "AI verified capability",
+
+            "Flexible production capacity",
+
+            "Creates inclusive income"
+
+        ]
+
+        }
+
+    )
+
+
+    st.dataframe(
+
+        value,
+
+        hide_index=True,
+
+        use_container_width=True
+
+    )
+
+
+
+    st.success(
+
+        """
+        SkillBridge AI transforms fragmented labor capacity
+        into a trusted digital workforce network.
         """
 
-        <div class="sb-card">
-
-
-        <div class="sb-card-title">
-
-        Recommended Workforce Allocation
-
-        </div>
-
-
-        <h3>
-        Bac Ninh Women Workforce Hub
-        </h3>
-
-
-        <p>
-
-        Match Score:
-        <b>96%</b>
-
-        </p>
-
-
-        <p>
-
-        Skill Compatibility:
-        95%
-
-        <br>
-
-        Availability:
-        100%
-
-        <br>
-
-        Reliability:
-        97%
-
-        </p>
-
-
-        <p style="
-        color:#16A34A;
-        font-weight:600;
-        ">
-
-        Expected completion probability:
-        94%
-
-        </p>
-
-
-        </div>
-
-
-        """,
-
-        unsafe_allow_html=True
     )
-
-
-
-    # ==================================================
-    # ESG SUMMARY
-    # ==================================================
-
-
-    st.markdown(
-        '<div class="section-title">Verified Social Impact</div>',
-        unsafe_allow_html=True
-    )
-
-
-    e1,e2,e3 = st.columns(3)
-
-
-    with e1:
-
-        st.metric(
-            "Workers Supported",
-            "320"
-        )
-
-
-    with e2:
-
-        st.metric(
-            "Working Hours Created",
-            "12,500"
-        )
-
-
-    with e3:
-
-        st.metric(
-            "SDG Alignment",
-            "5 / 8 / 10"
-        )

@@ -1,13 +1,14 @@
 [
- {
-  "enterprise_id":"E001",
+    {
+        "entity_id": "E001",
 
-  "trust_score":96,
+        "entity_type": "Enterprise",
 
-  "verification":"Verified",
 
-  "payment_history":98,
+        "verification": true,
 
-  "project_success":95
- }
+
+        "trust_score": 96
+
+    }
 ]

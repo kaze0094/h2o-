@@ -1,35 +1,25 @@
-import json
-from pathlib import Path
-
-
-DATA_FILE = Path(
-    "data/trust.json"
-)
+from services.data_loader import load_json
 
 
 
-def load_trust():
+def get_trust_data():
 
-    with open(
-        DATA_FILE,
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        return json.load(f)
+    return load_json(
+        "trust.json"
+    )
 
 
 
-def get_enterprise_trust(
-    enterprise_id
+def get_entity_trust(
+    entity_id
 ):
 
-    data = load_trust()
+    data = get_trust_data()
 
 
     for item in data:
 
-        if item["enterprise_id"] == enterprise_id:
+        if item["entity_id"] == entity_id:
 
             return item
 

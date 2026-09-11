@@ -2,122 +2,48 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-from components.layout import page_title
+from components.layout import (
+    section_title,
+    metric_card
+)
 
 from services.worker_service import (
     get_worker,
-    get_worker_skills
+    get_worker_profile
 )
-
 
 
 def show_worker_twin():
 
-
-    page_title(
+    section_title(
         "Worker Digital Twin",
-        "AI-generated capability profile based on verified skills and performance"
+        "AI-generated capability profile for inclusive workforce intelligence"
     )
 
 
-    # ==========================
-    # Load Worker Data
-    # ==========================
-
-    worker_id = "W001"
+    worker = get_worker(
+        "W001"
+    )
 
 
-    worker = get_worker(worker_id)
-
-
-    if worker is None:
+    if not worker:
 
         st.error(
-            "Worker profile not found"
+            "Worker profile unavailable"
         )
 
         return
 
 
 
-    skills = get_worker_skills(
-        worker_id
+    # ==========================
+    # BASIC PROFILE
+    # ==========================
+
+
+    st.subheader(
+        "Capability Profile"
     )
-
-
-    skill_df = pd.DataFrame(
-
-        {
-
-            "Skill": list(
-                skills.keys()
-            ),
-
-            "Score": list(
-                skills.values()
-            )
-
-        }
-
-    )
-
-
-    # ==========================
-    # PROFILE
-    # ==========================
-
-
-    st.markdown(
-
-        f"""
-
-        <div class="sb-card">
-
-        <div class="sb-card-title">
-        Worker Capability Profile
-        </div>
-
-
-        <h2>
-        {worker["name"]}
-        </h2>
-
-
-        <p>
-        Location:
-        <b>{worker["location"]}</b>
-        </p>
-
-
-        <p>
-        Availability:
-        <b>{worker["availability"]}</b>
-        </p>
-
-
-        <p>
-        Status:
-        <b style="color:#16A34A">
-        Verified
-        </b>
-        </p>
-
-
-        </div>
-
-        """,
-
-        unsafe_allow_html=True
-
-    )
-
-
-    st.write("")
-
-
-    # ==========================
-    # SCORE
-    # ==========================
 
 
     c1,c2,c3 = st.columns(3)
@@ -125,35 +51,30 @@ def show_worker_twin():
 
     with c1:
 
-        st.metric(
-
-            "Reliability Score",
-
-            f'{worker["reliability"]}%'
-
+        metric_card(
+            "Worker",
+            worker["name"]
         )
 
 
     with c2:
 
-        st.metric(
-
-            "Skill Categories",
-
-            len(skills)
-
+        metric_card(
+            "Location",
+            worker["location"]
         )
 
 
     with c3:
 
-        st.metric(
-
-            "Experience",
-
-            worker["experience"]
-
+        metric_card(
+            "Verification",
+            worker["trust"]["verification"]
         )
+
+
+    st.divider()
+
 
 
     # ==========================
@@ -161,11 +82,29 @@ def show_worker_twin():
     # ==========================
 
 
-    st.markdown(
+    st.subheader(
+        "Skill Intelligence"
+    )
 
-        '<div class="section-title">Verified Skills</div>',
 
-        unsafe_allow_html=True
+    skill_df = pd.DataFrame(
+
+        {
+
+            "Skill":
+
+            list(
+                worker["skills"].keys()
+            ),
+
+
+            "Score":
+
+            list(
+                worker["skills"].values()
+            )
+
+        }
 
     )
 
@@ -180,7 +119,7 @@ def show_worker_twin():
 
         orientation="h",
 
-        template="plotly_white"
+        title="Verified Capability Score"
 
     )
 
@@ -194,52 +133,111 @@ def show_worker_twin():
     )
 
 
+
+    # ==========================
+    # PERFORMANCE
+    # ==========================
+
+
+    st.subheader(
+
+        "Performance History"
+
+    )
+
+
+    performance = worker["performance"]
+
+
+    c1,c2,c3,c4 = st.columns(4)
+
+
+    with c1:
+
+        metric_card(
+
+            "Quality Score",
+
+            f'{performance["quality_score"]}%'
+
+        )
+
+
+    with c2:
+
+        metric_card(
+
+            "Completion Rate",
+
+            f'{performance["completion_rate"]}%'
+
+        )
+
+
+    with c3:
+
+        metric_card(
+
+            "Feedback",
+
+            f'{performance["feedback_score"]}%'
+
+        )
+
+
+    with c4:
+
+        metric_card(
+
+            "Completed Tasks",
+
+            performance["completed_tasks"]
+
+        )
+
+
+
+    st.divider()
+
+
+
     # ==========================
     # AI EXPLANATION
     # ==========================
 
 
-    st.markdown(
+    st.subheader(
+
+        "AI Capability Interpretation"
+
+    )
+
+
+    st.info(
+
+        f"""
+
+        This worker is suitable for enterprise tasks because:
+
+
+        • Verified skills match production requirements
+
+
+        • Historical quality performance:
+
+        {performance["quality_score"]}%
+
+
+        • Task completion reliability:
+
+        {performance["completion_rate"]}%
+
+
+        • Trusted workforce status:
+
+        {worker["trust"]["verification"]}
+
 
         """
-
-        <div class="sb-card">
-
-
-        <h3>
-        AI Capability Explanation
-        </h3>
-
-
-        <p>
-
-        This worker is recommended because:
-
-
-        <br><br>
-
-        • Verified packaging skill
-
-        <br>
-
-        • High reliability history
-
-        <br>
-
-        • Suitable availability window
-
-        <br>
-
-        • Previous quality performance
-
-
-        </p>
-
-
-        </div>
-
-        """,
-
-        unsafe_allow_html=True
 
     )
