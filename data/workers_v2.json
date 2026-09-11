@@ -1,0 +1,131 @@
+[
+    {
+        "worker_id": "W001",
+
+        "identity": {
+
+            "name": "Nguyen Thi Lan",
+
+            "location": "Bac Ninh",
+
+            "community_id": "C001"
+
+        },
+
+
+        "availability": {
+
+            "working_hours": "19:00-22:00",
+
+            "status": "Available"
+
+        },
+
+
+        "capabilities": [
+
+            {
+
+                "skill": "Packaging",
+
+                "category": "Production",
+
+                "score": 92,
+
+                "verified": true,
+
+                "evidence": [
+
+                    "Packaging Training",
+
+                    "86 completed tasks"
+
+                ],
+
+                "related_jobs": [
+
+                    "Product Packaging"
+
+                ]
+
+            },
+
+
+            {
+
+                "skill": "Quality Inspection",
+
+                "category": "Quality",
+
+                "score": 85,
+
+                "verified": true,
+
+                "evidence": [
+
+                    "Quality Control Basic"
+
+                ],
+
+                "related_jobs": [
+
+                    "Quality Control"
+
+                ]
+
+            },
+
+
+            {
+
+                "skill": "Handcraft",
+
+                "category": "Production",
+
+                "score": 88,
+
+                "verified": true,
+
+                "evidence": [
+
+                    "Work experience"
+
+                ],
+
+                "related_jobs": []
+
+            }
+
+        ],
+
+
+        "experience": {
+
+            "years": 3
+
+        },
+
+
+        "performance": {
+
+            "quality": 96,
+
+            "completion": 94,
+
+            "feedback": 95,
+
+            "completed_tasks": 86
+
+        },
+
+
+        "trust": {
+
+            "verification": "Verified",
+
+            "reliability": 95
+
+        }
+
+    }
+]

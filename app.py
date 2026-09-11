@@ -29,71 +29,54 @@ def main():
 
 
     selected_page = render_sidebar()
+   
+    if selected_page == "Dashboard":
 
-
-
-    if selected_page == "Overview":
-
-        from pages.dashboard import show_dashboard
-
+        from views.dashboard import show_dashboard
         show_dashboard()
 
 
+    elif selected_page == "Enterprise":
 
-    elif selected_page == "Enterprise Request":
-
-        from pages.enterprise import show_enterprise
-
+        from views.enterprise import show_enterprise
         show_enterprise()
 
 
+    elif selected_page == "Matching":
 
-    elif selected_page == "AI Matching":
-
-        from pages.matching import show_matching
-
+        from views.matching import show_matching
         show_matching()
 
 
+    elif selected_page == "Worker Twin":
 
-    elif selected_page == "Worker Digital Twin":
-
-        from pages.worker_twin import show_worker_twin
-
+        from views.worker_twin import show_worker_twin
         show_worker_twin()
 
 
-
-    elif selected_page == "Community Hub":
-
-        from pages.community import show_community
-
+    elif selected_page == "Community":
+        from views.community import show_community
         show_community()
-
 
 
     elif selected_page == "Quality Control":
 
-        from pages.quality import show_quality
-
+        from views.quality import show_quality
         show_quality()
-
 
 
     elif selected_page == "Trust & Safety":
 
-        from pages.trust import show_trust
-
+        from views.trust import show_trust
         show_trust()
-
 
 
     elif selected_page == "ESG Impact":
 
-        from pages.impact import show_impact
-
+        from views.impact import show_impact
         show_impact()
 
+   
 
 
 if __name__ == "__main__":

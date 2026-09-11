@@ -1,0 +1,25 @@
+[
+    {
+
+        "enterprise_id": "E001",
+
+
+        "profile": {
+
+            "name": "ABC Electronics Vietnam",
+
+            "industry": "Manufacturing"
+
+        },
+
+
+        "trust": {
+
+            "score": 96,
+
+            "verification": "Verified Enterprise"
+
+        }
+
+    }
+]

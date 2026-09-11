@@ -1,0 +1,41 @@
+[
+    {
+
+        "job_id": "J001",
+
+        "enterprise_id": "E001",
+
+
+        "job_profile": {
+
+            "title": "Product Packaging",
+
+            "category": "Manufacturing",
+
+            "quantity": 10000,
+
+            "duration": "14 days"
+
+        },
+
+
+        "workforce_requirement": {
+
+            "workers_needed": 30,
+
+
+            "required_skills": [
+
+                "Packaging",
+
+                "Quality Inspection"
+
+            ],
+
+
+            "quality_requirement": "Error rate <2%"
+
+        }
+
+    }
+]

@@ -1,140 +1,95 @@
 from core.matching_engine import (
+
     calculate_match,
-    explain_match
+
+    rank_workers
+
 )
 
 
-from services.community_service import (
-    get_communities
+from services.worker_service import (
+
+    get_all_workers_v2
+
 )
 
 
-def match_workers(
-    job,
-    workers
-):
+from services.job_service import (
+
+    get_job_v2
+
+)
 
 
-    results = []
+
+# =====================================
+# MATCHING RESULT
+# =====================================
 
 
-    for worker in workers:
+def get_matching_result():
 
 
-        score = calculate_match(
+    job = get_job_v2(
 
-            worker,
-
-            job
-
-        )
-
-
-        results.append(
-
-            {
-
-            "worker_id":
-
-                worker["worker_id"],
-
-
-            "name":
-
-                worker["name"],
-
-
-            "score":
-
-                score,
-
-
-            "explanation":
-
-                explain_match(
-
-                    worker,
-
-                    job
-
-                )
-
-            }
-
-        )
-
-
-    results.sort(
-
-        key=lambda x:
-
-        x["score"],
-
-        reverse=True
+        "J001"
 
     )
 
 
-    return results
+    workers = get_all_workers_v2()
 
 
 
-def match_communities():
+    if not workers or not job:
 
-    communities = get_communities()
-
-
-    results = []
+        return {}
 
 
-    for c in communities:
+
+    best_worker = workers[0]
 
 
-        performance = c["performance"]
 
+    return calculate_match(
 
-        score = (
+        best_worker,
 
-            performance["quality_score"]*0.4
-
-            +
-
-            performance["completion_rate"]*0.3
-
-            +
-
-            performance["reliability_score"]*0.3
-
-        )
-
-
-        results.append(
-
-            {
-
-            "community":
-
-                c["name"],
-
-
-            "score":
-
-                round(score,2)
-
-            }
-
-        )
-
-
-    results.sort(
-
-        key=lambda x:
-
-        x["score"],
-
-        reverse=True
+        job
 
     )
 
 
-    return results
+
+# =====================================
+# WORKER RANKING
+# =====================================
+
+
+def get_worker_ranking():
+
+
+    job = get_job_v2(
+
+        "J001"
+
+    )
+
+
+    workers = get_all_workers_v2()
+
+
+
+    if not job:
+
+        return []
+
+
+
+    return rank_workers(
+
+        workers,
+
+        job
+
+    )

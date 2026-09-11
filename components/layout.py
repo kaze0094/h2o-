@@ -2,186 +2,133 @@ import streamlit as st
 
 
 # =====================================================
-# GLOBAL STYLE SYSTEM
+# GLOBAL THEME
 # =====================================================
 
-def load_enterprise_theme():
+def load_theme():
 
     st.markdown(
-
         """
+        <style>
 
-<style>
+        .stApp {
 
+            background:#F8FAFC;
 
-/* Main background */
+        }
 
-.main {
 
-    background-color:#F7F9FC;
+        .block-container {
 
-}
+            padding-top:2rem;
 
+            padding-left:3rem;
 
+            padding-right:3rem;
 
-/* Remove default padding */
+        }
 
-.block-container {
 
-    padding-top:2rem;
+        h1,h2,h3,h4 {
 
-    padding-left:3rem;
+            color:#102A43;
 
-    padding-right:3rem;
+            font-family:Arial,sans-serif;
 
-}
+        }
 
 
+        p,div,span {
 
-/* Typography */
+            font-family:Arial,sans-serif;
 
-h1,h2,h3 {
+        }
 
-    color:#172B4D;
 
-    font-family:
-    "Inter",
-    sans-serif;
 
-}
+        /* CARD */
 
+        .custom-card {
 
-p,span,div {
+            background:white;
 
-    font-family:
-    "Inter",
-    sans-serif;
+            border:1px solid #E2E8F0;
 
-}
+            border-radius:18px;
 
+            padding:22px;
 
+            box-shadow:
+            0 4px 15px rgba(15,23,42,0.05);
 
-/* KPI CARD */
+        }
 
-.kpi-card {
 
 
-    background:white;
+        .card-title {
 
-    border-radius:14px;
+            color:#64748B;
 
-    padding:22px;
+            font-size:14px;
 
-    border:1px solid #E5E7EB;
+        }
 
-    box-shadow:
-    0 2px 8px rgba(0,0,0,0.04);
 
 
-}
+        .card-value {
 
+            color:#102A43;
 
+            font-size:30px;
 
-.kpi-title {
+            font-weight:700;
 
+            margin-top:10px;
 
-    color:#64748B;
+        }
 
-    font-size:14px;
 
-}
 
+        .card-desc {
 
-.kpi-value {
+            color:#94A3B8;
 
+            font-size:13px;
 
-    margin-top:8px;
+            margin-top:8px;
 
-    font-size:32px;
+        }
 
-    font-weight:700;
 
-    color:#0F172A;
 
+        /* SECTION */
 
-}
+        .section-title {
 
+            color:#102A43;
 
+            font-size:26px;
 
-/* Section */
+            font-weight:700;
 
-.section-title {
+            margin-top:30px;
 
+        }
 
-    font-size:24px;
 
-    font-weight:700;
+        .section-desc {
 
-    margin-bottom:4px;
+            color:#64748B;
 
+            font-size:14px;
 
-}
+            margin-bottom:15px;
 
+        }
 
 
-.section-description {
 
-
-    color:#64748B;
-
-    font-size:14px;
-
-    margin-bottom:25px;
-
-
-}
-
-
-
-/* Enterprise card */
-
-.enterprise-card {
-
-
-    background:white;
-
-    padding:24px;
-
-    border-radius:16px;
-
-    border:
-    1px solid #E2E8F0;
-
-
-}
-
-
-
-.badge {
-
-
-    display:inline-block;
-
-    padding:
-    5px 12px;
-
-    border-radius:20px;
-
-    background:#DCFCE7;
-
-    color:#166534;
-
-    font-size:12px;
-
-    font-weight:600;
-
-
-}
-
-
-
-</style>
-
+        </style>
 
         """,
 
@@ -192,49 +139,129 @@ p,span,div {
 
 
 # =====================================================
-# PAGE HEADER
+# HEADER
 # =====================================================
 
 
-def page_header(
-        title,
-        subtitle=""
+def render_header(
+
+        title="SkillBridge AI",
+
+        subtitle="Human Capital Digital Twin Platform"
+
 ):
+
+    load_theme()
 
 
     st.markdown(
 
         f"""
-
-<div>
-
-<h1 style="
-margin-bottom:5px;
+<div style="
+background:linear-gradient(135deg,#102A43,#2563EB);
+padding:35px;
+border-radius:20px;
+color:white;
+margin-bottom:30px;
 ">
 
+<h1 style="
+color:white;
+font-size:42px;
+margin:0;
+">
 {title}
-
 </h1>
 
 
-<div style="
-color:#64748B;
-font-size:15px;
+<p style="
+color:white;
+font-size:18px;
+margin-top:20px;
 ">
-
 {subtitle}
+</p>
+
 
 </div>
-
-
-</div>
-
-
 """,
 
         unsafe_allow_html=True
 
     )
+
+
+
+page_header = render_header
+
+
+
+# =====================================================
+# SIDEBAR
+# =====================================================
+
+
+def render_sidebar():
+
+
+    with st.sidebar:
+
+
+        st.markdown(
+
+            """
+
+            <h2 style="
+            color:#102A43;
+            ">
+            SkillBridge AI
+            </h2>
+
+
+            <p style="
+            color:#64748B;
+            ">
+            Human Capital Digital Twin
+            </p>
+
+            """,
+
+            unsafe_allow_html=True
+
+        )
+
+
+        st.divider()
+
+
+        selected = st.radio(
+
+            "Navigation",
+
+            [
+
+                "Dashboard",
+
+                "Community",
+
+                "Enterprise",
+
+                "ESG Impact",
+
+                "Matching",
+
+                "Quality Control",
+
+                "Trust & Safety",
+
+                "Worker Twin"
+
+            ]
+
+        )
+
+
+    return selected
 
 
 
@@ -256,21 +283,20 @@ def section_title(
 
         f"""
 
-<div class="section-title">
+        <div class="section-title">
 
-{title}
+        {title}
 
-</div>
-
-
-<div class="section-description">
-
-{description}
-
-</div>
+        </div>
 
 
-""",
+        <div class="section-desc">
+
+        {description}
+
+        </div>
+
+        """,
 
         unsafe_allow_html=True
 
@@ -298,38 +324,33 @@ def metric_card(
 
         f"""
 
-<div class="kpi-card">
+        <div class="custom-card">
 
 
-<div class="kpi-title">
+        <div class="card-title">
 
-{title}
+        {title}
 
-</div>
-
-
-<div class="kpi-value">
-
-{value}
-
-</div>
+        </div>
 
 
-<div style="
-color:#64748B;
-font-size:13px;
-margin-top:8px;
-">
+        <div class="card-value">
 
-{description}
+        {value}
 
-</div>
+        </div>
 
 
-</div>
+        <div class="card-desc">
+
+        {description}
+
+        </div>
 
 
-""",
+        </div>
+
+        """,
 
         unsafe_allow_html=True
 
@@ -338,7 +359,7 @@ margin-top:8px;
 
 
 # =====================================================
-# ENTERPRISE BOX
+# ENTERPRISE CARD
 # =====================================================
 
 
@@ -355,27 +376,28 @@ def enterprise_card(
 
         f"""
 
-<div class="enterprise-card">
+        <div class="custom-card">
 
 
-<h3>
+        <h3>
 
-{title}
+        {title}
 
-</h3>
-
-
-<div>
-
-{content}
-
-</div>
+        </h3>
 
 
-</div>
+        <p style="
+        color:#64748B;
+        ">
+
+        {content}
+
+        </p>
 
 
-""",
+        </div>
+
+        """,
 
         unsafe_allow_html=True
 
@@ -395,14 +417,75 @@ def status_badge(text):
 
         f"""
 
-<span class="badge">
+        <span style="
+        background:#DCFCE7;
+        color:#166534;
+        padding:6px 14px;
+        border-radius:20px;
+        font-size:12px;
+        font-weight:600;
+        ">
 
-{text}
+        {text}
 
-</span>
+        </span>
 
-""",
+        """,
 
         unsafe_allow_html=True
 
+    )
+
+
+
+# =====================================================
+# LEGACY SUPPORT
+# =====================================================
+
+
+def page_title(
+
+        title,
+        subtitle="",
+):
+    section_title(title, subtitle)
+
+
+
+    import streamlit as st
+
+
+def premium_card(title, value):
+
+    st.markdown(
+        f"""
+        <div style="
+            background:white;
+            border:1px solid #E2E8F0;
+            border-radius:18px;
+            padding:22px;
+            height:120px;
+        ">
+
+            <div style="
+                color:#64748B;
+                font-size:14px;
+            ">
+                {title}
+            </div>
+
+
+            <div style="
+                color:#102A43;
+                font-size:30px;
+                font-weight:700;
+                margin-top:12px;
+            ">
+                {value}
+            </div>
+
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
