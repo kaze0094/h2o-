@@ -1,21 +1,287 @@
 [
     {
-
         "enterprise_id": "E001",
 
+        "identity": {
 
-        "profile": {
+            "name": "Vinamilk",
 
-            "name": "ABC Electronics Vietnam",
+            "industry": "Food Manufacturing",
 
-            "industry": "Manufacturing"
+            "location": "Vietnam"
+
+        },
+
+
+        "workforce_demand": {
+
+            "type": "Flexible Production Workforce",
+
+            "workers_needed": 30,
+
+            "duration": "14 days"
+
+        },
+
+
+        "capability_requirements": [
+
+            {
+                "skill": "Packaging",
+
+                "category": "Production",
+
+                "importance": 95
+
+            },
+
+            {
+                "skill": "Quality Inspection",
+
+                "category": "Quality",
+
+                "importance": 90
+
+            }
+
+        ],
+
+
+        "quality_expectation": {
+
+            "target": "Error rate <2%"
 
         },
 
 
         "trust": {
 
-            "score": 96,
+            "score": 97,
+
+            "verification": "Verified Enterprise"
+
+        }
+
+    },
+
+
+    {
+        "enterprise_id": "E002",
+
+        "identity": {
+
+            "name": "Orion Food Vina",
+
+            "industry": "Food Production",
+
+            "location": "Vietnam"
+
+        },
+
+
+        "workforce_demand": {
+
+            "type": "Seasonal Production Workforce",
+
+            "workers_needed": 50,
+
+            "duration": "21 days"
+
+        },
+
+
+        "capability_requirements": [
+
+            {
+                "skill": "Packaging",
+
+                "category": "Production",
+
+                "importance": 95
+
+            },
+
+            {
+                "skill": "Quality Control",
+
+                "category": "Quality",
+
+                "importance": 90
+
+            },
+
+            {
+                "skill": "Handcraft",
+
+                "category": "Production",
+
+                "importance": 80
+
+            }
+
+        ],
+
+
+        "quality_expectation": {
+
+            "target": "Error rate <3%"
+
+        },
+
+
+        "trust": {
+
+            "score": 95,
+
+            "verification": "Verified Enterprise"
+
+        }
+
+    },
+
+
+    {
+        "enterprise_id": "E003",
+
+        "identity": {
+
+            "name": "May 10",
+
+            "industry": "Garment Manufacturing",
+
+            "location": "Hanoi"
+
+        },
+
+
+        "workforce_demand": {
+
+            "type": "Skilled Craft Workforce",
+
+            "workers_needed": 40,
+
+            "duration": "30 days"
+
+        },
+
+
+        "capability_requirements": [
+
+            {
+                "skill": "Handcraft",
+
+                "category": "Craft",
+
+                "importance": 95
+
+            },
+
+            {
+                "skill": "Quality Inspection",
+
+                "category": "Quality",
+
+                "importance": 90
+
+            },
+
+            {
+                "skill": "Packaging",
+
+                "category": "Production",
+
+                "importance": 75
+
+            }
+
+        ],
+
+
+        "quality_expectation": {
+
+            "target": "Defect rate <2%"
+
+        },
+
+
+        "trust": {
+
+            "score": 94,
+
+            "verification": "Verified Enterprise"
+
+        }
+
+    },
+
+
+    {
+        "enterprise_id": "E004",
+
+        "identity": {
+
+            "name": "AEON Vietnam",
+
+            "industry": "Retail & Consumer Goods",
+
+            "location": "Vietnam"
+
+        },
+
+
+        "workforce_demand": {
+
+            "type": "Flexible Retail Support Workforce",
+
+            "workers_needed": 25,
+
+            "duration": "14 days"
+
+        },
+
+
+        "capability_requirements": [
+
+            {
+                "skill": "Packaging",
+
+                "category": "Production",
+
+                "importance": 85
+
+            },
+
+            {
+                "skill": "Inventory",
+
+                "category": "Logistics",
+
+                "importance": 90
+
+            },
+
+            {
+                "skill": "Quality Inspection",
+
+                "category": "Quality",
+
+                "importance": 85
+
+            }
+
+        ],
+
+
+        "quality_expectation": {
+
+            "target": "Accuracy rate >98%"
+
+        },
+
+
+        "trust": {
+
+            "score": 93,
 
             "verification": "Verified Enterprise"
 

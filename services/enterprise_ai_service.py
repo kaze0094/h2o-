@@ -41,68 +41,73 @@ def get_enterprise_workforce_profile(
     return {
 
 
-        "enterprise": {
+    "enterprise": {
 
 
-            "name":
+        "name":
 
-                enterprise["profile"]["name"],
-
-
-            "industry":
-
-                enterprise["profile"]["industry"],
+            enterprise["identity"]["name"],
 
 
-            "trust_score":
+        "industry":
 
-                enterprise["trust"]["score"]
-
-        },
+            enterprise["identity"]["industry"],
 
 
-        "job": {
+        "location":
+
+            enterprise["identity"]["location"],
 
 
-            "title":
+        "trust_score":
 
-                job["job_profile"]["title"],
+            enterprise["trust"]["score"]
 
-
-            "category":
-
-                job["job_profile"]["category"],
+    },
 
 
-            "quantity":
-
-                job["job_profile"]["quantity"],
+    "job": {
 
 
-            "duration":
+        "title":
 
-                job["job_profile"]["duration"]
-
-        },
+            job["job_profile"]["title"],
 
 
-        "requirements": {
+        "category":
+
+            job["job_profile"]["category"],
 
 
-            "workers_needed":
+        "quantity":
 
-                job["workforce_requirement"]["workers_needed"],
-
-
-            "skills":
-
-                job["workforce_requirement"]["required_skills"],
+            job["job_profile"]["quantity"],
 
 
-            "quality":
+        "duration":
 
-                job["workforce_requirement"]["quality_requirement"]
+            job["job_profile"]["duration"]
 
-        }
+    },
+
+
+    "requirements": {
+
+
+        "workers_needed":
+
+            job["workforce_requirement"]["workers_needed"],
+
+
+        "skills":
+
+            job["workforce_requirement"]["required_skills"],
+
+
+        "quality":
+
+            job["workforce_requirement"]["quality_requirement"]
 
     }
+
+}

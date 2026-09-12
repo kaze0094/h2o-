@@ -8,50 +8,11 @@
 
         "location": "Bac Ninh",
 
-
         "availability": "19:00-22:00",
 
-
         "skills": {
-
             "Packaging": 92,
-
-            "Quality Inspection": 85,
-
-            "Handcraft": 88
-
-        },
-
-
-        "experience_years": 3,
-
-
-        "certifications": [
-            "Packaging Training",
-            "Quality Control Basic"
-        ],
-
-
-        "performance": {
-
-            "quality_score": 96,
-
-            "completion_rate": 94,
-
-            "feedback_score": 95,
-
-            "completed_tasks": 86
-
-        },
-
-
-        "trust": {
-
-            "verification": "Verified",
-
-            "reliability_score": 95
-
+            "Quality Inspection": 85
         }
-
     }
 ]

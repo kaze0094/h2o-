@@ -87,16 +87,12 @@ def get_enterprise_v2(
 
 
 def get_enterprise_profile(
-
         enterprise_id
-
 ):
 
 
     enterprise = get_enterprise_v2(
-
         enterprise_id
-
     )
 
 
@@ -110,12 +106,17 @@ def get_enterprise_profile(
 
         "name":
 
-            enterprise["profile"]["name"],
+            enterprise["identity"]["name"],
 
 
         "industry":
 
-            enterprise["profile"]["industry"],
+            enterprise["identity"]["industry"],
+
+
+        "location":
+
+            enterprise["identity"]["location"],
 
 
         "trust_score":

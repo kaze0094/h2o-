@@ -1,131 +1,373 @@
 [
     {
         "worker_id": "W001",
-
         "identity": {
-
             "name": "Nguyen Thi Lan",
-
             "location": "Bac Ninh",
-
             "community_id": "C001"
-
         },
-
-
         "availability": {
-
             "working_hours": "19:00-22:00",
-
             "status": "Available"
-
         },
-
-
         "capabilities": [
-
             {
-
                 "skill": "Packaging",
-
                 "category": "Production",
-
                 "score": 92,
-
                 "verified": true,
-
                 "evidence": [
-
                     "Packaging Training",
-
                     "86 completed tasks"
-
                 ],
-
                 "related_jobs": [
-
-                    "Product Packaging"
-
+                    "Food Packaging Workforce"
                 ]
-
             },
-
-
             {
-
                 "skill": "Quality Inspection",
-
                 "category": "Quality",
-
                 "score": 85,
-
                 "verified": true,
-
                 "evidence": [
-
                     "Quality Control Basic"
-
                 ],
-
                 "related_jobs": [
-
-                    "Quality Control"
-
+                    "Quality Inspection"
                 ]
-
             },
-
-
             {
-
                 "skill": "Handcraft",
-
                 "category": "Production",
-
                 "score": 88,
-
                 "verified": true,
-
                 "evidence": [
-
                     "Work experience"
-
                 ],
-
                 "related_jobs": []
-
             }
-
         ],
-
-
         "experience": {
-
             "years": 3
-
         },
-
-
         "performance": {
-
             "quality": 96,
-
             "completion": 94,
-
             "feedback": 95,
-
             "completed_tasks": 86
-
         },
-
-
         "trust": {
-
             "verification": "Verified",
-
             "reliability": 95
-
         }
+    },
 
+
+    {
+        "worker_id": "W002",
+        "identity": {
+            "name": "Tran Van Minh",
+            "location": "Thai Nguyen",
+            "community_id": "C002"
+        },
+        "availability": {
+            "working_hours": "18:00-22:00",
+            "status": "Available"
+        },
+        "capabilities": [
+            {
+                "skill": "Assembly",
+                "category": "Production",
+                "score": 90,
+                "verified": true,
+                "evidence": [
+                    "Assembly Training",
+                    "72 completed tasks"
+                ],
+                "related_jobs": [
+                    "Production Assembly"
+                ]
+            },
+            {
+                "skill": "Machine Operation",
+                "category": "Production",
+                "score": 87,
+                "verified": true,
+                "evidence": [
+                    "Machine Operation Certificate"
+                ],
+                "related_jobs": []
+            },
+            {
+                "skill": "Quality Inspection",
+                "category": "Quality",
+                "score": 82,
+                "verified": true,
+                "evidence": [
+                    "Quality Control Training"
+                ],
+                "related_jobs": [
+                    "Quality Inspection"
+                ]
+            }
+        ],
+        "experience": {
+            "years": 4
+        },
+        "performance": {
+            "quality": 91,
+            "completion": 93,
+            "feedback": 90,
+            "completed_tasks": 72
+        },
+        "trust": {
+            "verification": "Verified",
+            "reliability": 92
+        }
+    },
+
+
+    {
+        "worker_id": "W003",
+        "identity": {
+            "name": "Le Thi Hoa",
+            "location": "Bac Ninh",
+            "community_id": "C001"
+        },
+        "availability": {
+            "working_hours": "19:00-23:00",
+            "status": "Available"
+        },
+        "capabilities": [
+            {
+                "skill": "Packaging",
+                "category": "Production",
+                "score": 88,
+                "verified": true,
+                "evidence": [
+                    "Packaging Training",
+                    "60 completed tasks"
+                ],
+                "related_jobs": [
+                    "Food Packaging Workforce"
+                ]
+            },
+            {
+                "skill": "Handcraft",
+                "category": "Craft",
+                "score": 91,
+                "verified": true,
+                "evidence": [
+                    "Traditional craft experience"
+                ],
+                "related_jobs": [
+                    "Garment Finishing Workforce"
+                ]
+            },
+            {
+                "skill": "Quality Control",
+                "category": "Quality",
+                "score": 86,
+                "verified": true,
+                "evidence": [
+                    "Production checking experience"
+                ],
+                "related_jobs": [
+                    "Food Production Support"
+                ]
+            }
+        ],
+        "experience": {
+            "years": 2
+        },
+        "performance": {
+            "quality": 89,
+            "completion": 90,
+            "feedback": 91,
+            "completed_tasks": 60
+        },
+        "trust": {
+            "verification": "Verified",
+            "reliability": 90
+        }
+    },
+
+
+    {
+        "worker_id": "W004",
+        "identity": {
+            "name": "Pham Quang Huy",
+            "location": "Ha Noi",
+            "community_id": "C003"
+        },
+        "availability": {
+            "working_hours": "18:00-22:00",
+            "status": "Available"
+        },
+        "capabilities": [
+            {
+                "skill": "Inventory",
+                "category": "Logistics",
+                "score": 88,
+                "verified": true,
+                "evidence": [
+                    "Warehouse experience",
+                    "110 completed tasks"
+                ],
+                "related_jobs": [
+                    "Retail Product Preparation Team"
+                ]
+            },
+            {
+                "skill": "Packaging",
+                "category": "Production",
+                "score": 80,
+                "verified": true,
+                "evidence": [
+                    "Packaging support experience"
+                ],
+                "related_jobs": [
+                    "Packaging Workforce"
+                ]
+            },
+            {
+                "skill": "Quality Inspection",
+                "category": "Quality",
+                "score": 85,
+                "verified": true,
+                "evidence": [
+                    "Product checking experience"
+                ],
+                "related_jobs": []
+            }
+        ],
+        "experience": {
+            "years": 5
+        },
+        "performance": {
+            "quality": 94,
+            "completion": 95,
+            "feedback": 93,
+            "completed_tasks": 110
+        },
+        "trust": {
+            "verification": "Verified",
+            "reliability": 94
+        }
+    },
+
+
+    {
+        "worker_id": "W005",
+        "identity": {
+            "name": "Nguyen Van Nam",
+            "location": "Thai Nguyen",
+            "community_id": "C002"
+        },
+        "availability": {
+            "working_hours": "19:00-22:00",
+            "status": "Available"
+        },
+        "capabilities": [
+            {
+                "skill": "Assembly",
+                "category": "Production",
+                "score": 89,
+                "verified": true,
+                "evidence": [
+                    "Industrial Assembly Training"
+                ],
+                "related_jobs": [
+                    "Production Assembly"
+                ]
+            },
+            {
+                "skill": "Machine Operation",
+                "category": "Production",
+                "score": 86,
+                "verified": true,
+                "evidence": [
+                    "Machine Operation Certificate"
+                ],
+                "related_jobs": []
+            },
+            {
+                "skill": "Quality Inspection",
+                "category": "Quality",
+                "score": 84,
+                "verified": true,
+                "evidence": [
+                    "Quality Checking Experience"
+                ],
+                "related_jobs": []
+            }
+        ],
+        "experience": {
+            "years": 6
+        },
+        "performance": {
+            "quality": 95,
+            "completion": 96,
+            "feedback": 94,
+            "completed_tasks": 130
+        },
+        "trust": {
+            "verification": "Verified",
+            "reliability": 96
+        }
+    },
+
+
+    {
+        "worker_id": "W006",
+        "identity": {
+            "name": "Do Thi Mai",
+            "location": "Ha Noi",
+            "community_id": "C003"
+        },
+        "availability": {
+            "working_hours": "18:30-22:30",
+            "status": "Available"
+        },
+        "capabilities": [
+            {
+                "skill": "Quality Inspection",
+                "category": "Quality",
+                "score": 94,
+                "verified": true,
+                "evidence": [
+                    "Quality Control Certificate",
+                    "98 completed tasks"
+                ],
+                "related_jobs": [
+                    "Quality Inspection"
+                ]
+            },
+            {
+                "skill": "Packaging",
+                "category": "Production",
+                "score": 84,
+                "verified": true,
+                "evidence": [
+                    "Consumer product packaging experience"
+                ],
+                "related_jobs": [
+                    "Food Packaging Workforce"
+                ]
+            }
+        ],
+        "experience": {
+            "years": 3
+        },
+        "performance": {
+            "quality": 97,
+            "completion": 92,
+            "feedback": 95,
+            "completed_tasks": 98
+        },
+        "trust": {
+            "verification": "Verified",
+            "reliability": 95
+        }
     }
 ]
