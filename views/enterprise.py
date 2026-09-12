@@ -5,7 +5,7 @@ import streamlit as st
 import pandas as pd
 
 
-from services.enterprise_service import get_enterprise
+from services.enterprise_service import get_enterprise_profile
 from services.job_service import get_job
 
 
@@ -17,7 +17,7 @@ def show_enterprise():
     # LOAD DATA
     # =========================
 
-    enterprise = get_enterprise("E001")
+    enterprise = get_enterprise_profile("E001")
 
     job = get_job("J001")
 

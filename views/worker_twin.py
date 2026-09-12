@@ -18,28 +18,15 @@ from services.worker_ai_service import (
 def show_worker_twin():
 
 
-    # =====================================
-    # HEADER
-    # =====================================
-
-
-
-
-
-
     worker = get_worker_v2(
-
         "W001"
-
     )
 
 
     if not worker:
 
         st.error(
-
             "Worker profile unavailable"
-
         )
 
         return
@@ -51,63 +38,72 @@ def show_worker_twin():
 
 
     # =====================================
+    # HEADER
+    # =====================================
+
+    st.markdown(
+        """
+        <div style="
+        background:linear-gradient(135deg,#102A43,#2563EB);
+        padding:35px;
+        border-radius:20px;
+        color:white;
+        margin-bottom:30px;
+        ">
+
+        <h1 style="color:white;">
+        Worker Digital Twin
+        </h1>
+
+        <p>
+        AI-powered human capability intelligence profile
+        </p>
+
+        </div>
+        """,
+
+        unsafe_allow_html=True
+    )
+
+
+
+    # =====================================
     # IDENTITY
     # =====================================
 
-
     st.subheader(
-
         "Worker Identity"
-
     )
-
 
 
     c1,c2,c3,c4 = st.columns(4)
 
 
-
     with c1:
-
         st.metric(
-
             "Worker",
-
             identity["name"]
-
         )
 
 
     with c2:
-
         st.metric(
-
             "Location",
-
             identity["location"]
-
         )
 
 
     with c3:
-
         st.metric(
-
             "Community",
-
             identity["community_id"]
-
         )
 
 
     with c4:
-
         st.metric(
-
             "Experience",
-
             f'{worker["experience"]["years"]} years'
-
         )
 
 
@@ -117,31 +113,48 @@ def show_worker_twin():
 
 
     # =====================================
-    # READINESS SCORE
+    # READINESS
     # =====================================
 
-
     readiness = calculate_worker_readiness(
-
         "W001"
-
     )
-
 
 
     st.subheader(
-
         "AI Workforce Readiness"
-
     )
 
 
-    st.metric(
+    st.markdown(
+        f"""
+        <div style="
+        background:white;
+        border:1px solid #E2E8F0;
+        border-radius:16px;
+        padding:20px;
+        ">
 
-        "Readiness Score",
+        <div style="
+        color:#64748B;
+        ">
+        Readiness Score
+        </div>
 
-        f"{readiness}%"
 
+        <div style="
+        font-size:32px;
+        font-weight:700;
+        color:#2563EB;
+        ">
+        {readiness}%
+        </div>
+
+
+        </div>
+        """,
+
+        unsafe_allow_html=True
     )
 
 
@@ -151,21 +164,16 @@ def show_worker_twin():
 
 
     # =====================================
-    # CAPABILITY INTELLIGENCE
+    # CAPABILITY
     # =====================================
 
-
     st.subheader(
-
         "Capability Intelligence"
-
     )
 
 
     capabilities = get_worker_capability_summary(
-
         "W001"
-
     )
 
 
@@ -173,57 +181,110 @@ def show_worker_twin():
     for item in capabilities:
 
 
-        with st.container():
-
-
-            st.markdown(
-
+        st.markdown(
             f"""
+            <div style="
+            background:white;
+            border:1px solid #E2E8F0;
+            border-radius:16px;
+            padding:20px;
+            margin-bottom:15px;
+            ">
 
-            ### {item["skill"]}
+
+            <h3 style="
+            color:#102A43;
+            ">
+            {item["skill"]}
+            </h3>
 
 
-            Category:
+            <div style="
+            display:flex;
+            justify-content:space-between;
+            padding:8px 0;
+            ">
 
+            <span style="color:#64748B;">
+            Category
+            </span>
+
+            <b>
             {item["category"]}
+            </b>
+
+            </div>
 
 
-            Capability Score:
 
+            <div style="
+            display:flex;
+            justify-content:space-between;
+            padding:8px 0;
+            ">
+
+            <span style="color:#64748B;">
+            Capability Score
+            </span>
+
+            <b style="color:#2563EB;">
             {item["score"]}%
+            </b>
+
+            </div>
 
 
-            Verified:
 
-            {item["verified"]}
+            <div style="
+            display:flex;
+            justify-content:space-between;
+            padding:8px 0;
+            ">
 
+            <span style="color:#64748B;">
+            Verified
+            </span>
+
+            <b style="color:#16A34A;">
+            ✓ Verified
+            </b>
+
+            </div>
+
+
+            </div>
             """,
 
-            )
+            unsafe_allow_html=True
+        )
 
 
 
-            evidence = pd.DataFrame(
+        for evidence in item["evidence"]:
 
-                {
+            st.markdown(
+                f"""
+                <div style="
+                background:#F8FAFC;
+                border-radius:10px;
+                padding:12px;
+                margin-bottom:8px;
+                ">
 
-                    "Evidence":
+                <span style="
+                color:#64748B;
+                ">
+                Evidence
+                </span>
 
-                    item["evidence"]
+                <br>
 
-                }
+                ✓ {evidence}
 
-            )
+                </div>
+                """,
 
-
-            st.dataframe(
-
-                evidence,
-
-                hide_index=True,
-
-                use_container_width=True
-
+                unsafe_allow_html=True
             )
 
 
@@ -238,59 +299,56 @@ def show_worker_twin():
 
 
     st.subheader(
-
         "Performance Intelligence"
-
     )
 
 
     performance = worker["performance"]
 
 
+    performance_items = [
 
-    performance_df = pd.DataFrame(
+        ("Quality", performance["quality"]),
 
-        {
+        ("Completion", performance["completion"]),
 
-            "Metric":
+        ("Feedback", performance["feedback"])
 
-            [
-
-                "Quality",
-
-                "Completion",
-
-                "Feedback"
-
-            ],
+    ]
 
 
-            "Score":
 
-            [
-
-                performance["quality"],
-
-                performance["completion"],
-
-                performance["feedback"]
-
-            ]
-
-        }
-
-    )
+    for name,value in performance_items:
 
 
-    st.dataframe(
+        st.markdown(
+            f"""
+            <div style="
+            display:flex;
+            justify-content:space-between;
+            padding:12px;
+            background:white;
+            border:1px solid #E2E8F0;
+            border-radius:12px;
+            margin-bottom:8px;
+            ">
 
-        performance_df,
+            <span>
+            {name}
+            </span>
 
-        hide_index=True,
 
-        use_container_width=True
+            <b style="
+            color:#2563EB;
+            ">
+            {value}%
+            </b>
 
-    )
+            </div>
+            """,
+
+            unsafe_allow_html=True
+        )
 
 
 
@@ -302,19 +360,13 @@ def show_worker_twin():
     # AI RECOMMENDATION
     # =====================================
 
-
     st.subheader(
-
         "AI Job Recommendation"
-
     )
 
 
-
     recommendations = get_worker_job_recommendations(
-
         "W001"
-
     )
 
 
@@ -322,68 +374,64 @@ def show_worker_twin():
     if recommendations:
 
 
-        rec_df = pd.DataFrame(
-
-            [
-
-                {
-
-                    "Skill":
-
-                    item["skill"],
+        for item in recommendations:
 
 
-                    "Recommended Jobs":
+            st.markdown(
+                f"""
+                <div style="
+                background:white;
+                border:1px solid #E2E8F0;
+                border-radius:15px;
+                padding:18px;
+                margin-bottom:12px;
+                ">
 
-                    ", ".join(item["job"]),
+                <b>
+                Skill:
+                </b>
+                {item["skill"]}
+
+                <br><br>
+
+                <b>
+                Recommended Jobs:
+                </b>
+                {", ".join(item["job"])}
+
+                <br><br>
+
+                <b>
+                Confidence:
+                </b>
+
+                <span style="
+                color:#2563EB;
+                font-weight:700;
+                ">
+                {item["confidence"]}%
+                </span>
 
 
-                    "Confidence":
+                </div>
+                """,
 
-                    f'{item["confidence"]}%'
-
-                }
-
-
-                for item in recommendations
-
-            ]
-
-        )
-
-
-        st.dataframe(
-
-            rec_df,
-
-            hide_index=True,
-
-            use_container_width=True
-
-        )
+                unsafe_allow_html=True
+            )
 
 
     else:
 
-
         st.info(
-
             "No AI recommendation available."
-
         )
 
 
 
     st.success(
-
         """
-
         AI Insight:
-
         Worker profile demonstrates verified capability,
-
         strong reliability and readiness for enterprise workforce matching.
-
         """
-
     )

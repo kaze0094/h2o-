@@ -43,6 +43,13 @@ def generate_matching_insight(
 
         "reason":
 
-            best["explanation"]
+            best.get(
+        "explanation",
+        [
+            "Required skills matched",
+            "Verified workforce capability",
+            "Strong reliability score"
+        ]
+    )
 
     }

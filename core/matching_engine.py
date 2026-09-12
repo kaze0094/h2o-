@@ -209,23 +209,23 @@ def calculate_match(
 
     final_score = round(
 
-        skill_score * 0.4
+        skill_score * 0.50
 
         +
 
-        performance_score * 0.2
+        performance_score * 0.20
 
         +
 
-        reliability_score * 0.2
+        reliability_score * 0.15
 
         +
 
-        availability_score * 0.1
+        availability_score * 0.10
 
         +
 
-        experience_score * 0.1
+        experience_score * 0.05
 
     )
 
